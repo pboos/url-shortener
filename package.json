@@ -11,7 +11,9 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.10.3",
+    "@types/bcryptjs": "^2.4.6",
     "@types/better-sqlite3": "^7.6.8",
+    "@types/jsonwebtoken": "^9.0.5",
     "daisyui": "^4.5.0",
     "drizzle-kit": "^0.20.9",
     "nuxt": "^3.9.0",
@@ -20,8 +22,10 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
+    "bcryptjs": "^2.4.3",
     "better-sqlite3": "^9.2.2",
     "drizzle-orm": "^0.29.3",
+    "jsonwebtoken": "^9.0.2",
     "pinia": "^2.1.7"
   }
 }
