@@ -2,6 +2,8 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+Followed [this tutorial](https://dev.to/aaronksaunders/drizzle-orm-sqlite-and-nuxt-js-getting-started-374m) for setting up sqlite & drizzle.
+
 ## Setup
 
 Make sure to install the dependencies:
@@ -18,6 +20,23 @@ yarn install
 
 # bun
 bun install
+```
+
+## Drizzle
+
+Generate migrations
+```bash
+npm exec drizzle-kit generate:sqlite --out migrations --schema db/schema.ts
+```
+
+Push migrations to database
+```bash
+npm exec drizzle-kit push:sqlite
+```
+
+Start Drizzle Studio (graphical UI to manipulate DB)
+```bash
+npm exec drizzle-kit studio
 ```
 
 ## Development Server
