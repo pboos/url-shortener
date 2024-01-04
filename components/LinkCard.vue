@@ -4,8 +4,6 @@ import type { Link } from "~/model/api/link";
 defineProps<{
   link: Link;
 }>();
-
-const config = useRuntimeConfig();
 </script>
 
 <template>
@@ -15,7 +13,7 @@ const config = useRuntimeConfig();
         <div class="w-1/2">
           <div class="text-xl">
             <NuxtLink
-              :to="{ name: 'admin-link-key', params: { key: link.key } }"
+              :to="{ name: 'admin-key', params: { key: link.key } }"
               class="text-amber-500 font-bold"
               >/{{ link.key }}
             </NuxtLink>
