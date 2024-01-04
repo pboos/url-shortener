@@ -1,5 +1,5 @@
 import { sign, decode } from "jsonwebtoken";
-import { EventHandlerRequest, H3Event } from "h3";
+import { type EventHandlerRequest, H3Event } from "h3";
 
 interface AuthTokenUser {
   id: number;

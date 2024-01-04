@@ -1,4 +1,4 @@
-import { EventHandlerRequest, H3Event } from "h3";
+import { type EventHandlerRequest, H3Event } from "h3";
 
 export const clientInfo = (event: H3Event<EventHandlerRequest>) => {
   const ip =

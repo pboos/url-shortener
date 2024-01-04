@@ -1,4 +1,4 @@
-import { EventHandlerRequest, H3Event } from "h3";
+import { type EventHandlerRequest, H3Event } from "h3";
 import { eq } from "drizzle-orm";
 import { db } from "~/server/db/sqlite-service";
 import { links } from "~/server/db/schema";

@@ -1,5 +1,5 @@
 import { hash } from "bcryptjs";
-import { users, InsertUser } from "@/server/db/schema";
+import { users, type InsertUser } from "@/server/db/schema";
 import { db } from "~/server/db/sqlite-service";
 
 export default defineEventHandler(async (event) => {

@@ -1,7 +1,7 @@
 import { lookup } from "geoip-lite";
 import { requireLinkInPath } from "~/server/utils/links";
 import { clientInfo } from "~/server/utils/clientInfo";
-import { InsertVisit, visits } from "~/server/db/schema";
+import { type InsertVisit, visits } from "~/server/db/schema";
 import { db } from "~/server/db/sqlite-service";
 
 export default defineEventHandler((event) => {

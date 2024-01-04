@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { db } from "~/server/db/sqlite-service";
-import { InsertLink, links } from "~/server/db/schema";
+import { type InsertLink, links } from "~/server/db/schema";
 import { requireAuth } from "~/server/utils/auth";
 
 export default defineEventHandler(async (event) => {

@@ -1,11 +1,11 @@
 import type { UseFetchOptions } from "#app";
 
-export const useFetchWithAuth = (
+export const useFetchWithAuth = <ResT = void>(
   url: string,
-  options?: UseFetchOptions<any>,
+  options?: UseFetchOptions<ResT>,
 ) => {
-  return useFetch(url, {
-    ...options,
+  return useFetch<ResT>(url, {
+    ...options as any,
     onRequest({ options }): Promise<void> | void {
       const authToken = useAuthToken();
       if (authToken.value) {
