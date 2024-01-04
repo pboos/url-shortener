@@ -1,7 +1,7 @@
 import { count } from "drizzle-orm";
 import { users } from "@/server/db/schema";
 import { db } from "~/server/db/sqlite-service";
-import type { GetSetupResponse } from "~/model/api/response/getSetupResponse";
+import type { GetSetupResponse } from "~/model/api/response/GetSetupResponse";
 
 export default defineEventHandler(async (): Promise<GetSetupResponse> => {
   try {

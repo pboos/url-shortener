@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { GetSetupResponse } from "~/model/api/response/getSetupResponse";
+import type { GetSetupResponse } from "~/model/api/response/GetSetupResponse";
 
 const getIsSetup = async () => {
   try {
