@@ -1,4 +1,4 @@
-import { lookup } from "geoip-lite";
+import geoip from "geoip-lite";
 import { requireLinkInPath } from "~/server/utils/links";
 import { clientInfo } from "~/server/utils/clientInfo";
 import { type InsertVisit, visits } from "~/server/db/schema";
@@ -7,7 +7,7 @@ import { db } from "~/server/db/sqlite-service";
 export default defineEventHandler((event) => {
   const link = requireLinkInPath(event);
   const clientInfoData = clientInfo(event);
-  const geo = clientInfoData.ip ? lookup(clientInfoData.ip) : null;
+  const geo = clientInfoData.ip ? geoip.lookup(clientInfoData.ip) : null;
 
   const newVisit: InsertVisit = {
     linkId: link.id,

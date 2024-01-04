@@ -20,6 +20,9 @@ const createLink = async () => {
     }),
   });
 };
+
+const {data: links} = await useFetchWithAuth("/api/links");
+
 </script>
 
 <template>
@@ -28,6 +31,9 @@ const createLink = async () => {
     {{ isAuthenticated ? "authenticated" : "not authenticated" }}
     <div>
       <button class="btn btn-primary" @click="createLink">Create Link</button>
+      <div v-for="test in links">
+        {{test.key}}
+      </div>
     </div>
   </div>
 </template>

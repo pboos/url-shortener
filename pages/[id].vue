@@ -2,22 +2,23 @@
 const params = useRoute().params;
 const urlKey = params.id;
 
-const linkData = await useAsyncData(async () => {
+const linkResponse = await useFetch(`/api/links/${urlKey}`);
+
+const linkData = computed(() => {
   try {
-    const response = await useFetch(`/api/links/${urlKey}`);
-    if (response.error.value) {
+    if (linkResponse.error.value) {
       return null;
     }
-    return response.data.value;
+    return linkResponse.data.value;
   } catch (e) {
     console.error(e);
     return null;
   }
 });
 
-if (linkData.data.value) {
+if (linkData.value) {
   await useFetch(`/api/links/${urlKey}/track`, { method: "POST" });
-  navigateTo(linkData.data.value.url, { external: true });
+  navigateTo(linkData.value.url, { external: true });
 } else {
   throw createError({ statusCode: 404 });
 }

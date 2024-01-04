@@ -1,4 +1,4 @@
-import { hash } from "bcryptjs";
+import bcrypt from "bcryptjs";
 import { users, type InsertUser } from "@/server/db/schema";
 import { db } from "~/server/db/sqlite-service";
 
@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const newUser: InsertUser = {
       username: body.username,
-      password: await hash(body.password, 10),
+      password: await bcrypt.hash(body.password, 10),
     };
     db.insert(users).values(newUser).run();
     return { username: newUser.username };

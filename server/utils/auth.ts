@@ -1,4 +1,4 @@
-import { sign, decode } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { type EventHandlerRequest, H3Event } from "h3";
 
 interface AuthTokenUser {
@@ -9,11 +9,11 @@ interface AuthTokenUser {
 const secret = process.env.NUXT_JWT_SECRET ?? "mysecrettoken";
 
 export const createAuthToken = (user: AuthTokenUser): string => {
-  return sign(user, secret);
+  return jwt.sign(user, secret);
 };
 
 export const parseAuthToken = (token: string): AuthTokenUser | null => {
-  const decoded = decode(token);
+  const decoded = jwt.decode(token);
   if (!decoded) {
     return null;
   }

@@ -1,4 +1,4 @@
-import { compare } from "bcryptjs";
+import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 import { users } from "@/server/db/schema";
 import { db } from "~/server/db/sqlite-service";
@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
       throw new Error("User not found");
     }
 
-    if (!(await compare(body.password, user.password))) {
+    if (!(await bcrypt.compare(body.password, user.password))) {
       throw new Error("User not found");
     }
 
