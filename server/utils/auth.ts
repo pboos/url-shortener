@@ -9,10 +9,12 @@ interface AuthTokenUser {
 const secret = process.env.NUXT_JWT_SECRET ?? "mysecrettoken";
 
 export const createAuthToken = (user: AuthTokenUser): string => {
+  // eslint-disable-next-line import/no-named-as-default-member
   return jwt.sign(user, secret);
 };
 
 export const parseAuthToken = (token: string): AuthTokenUser | null => {
+  // eslint-disable-next-line import/no-named-as-default-member
   const decoded = jwt.decode(token);
   if (!decoded) {
     return null;

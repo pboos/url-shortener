@@ -7,6 +7,7 @@ import { db } from "~/server/db/sqlite-service";
 export default defineEventHandler((event) => {
   const link = requireLinkInPath(event);
   const clientInfoData = clientInfo(event);
+  // eslint-disable-next-line import/no-named-as-default-member
   const geo = clientInfoData.ip ? geoip.lookup(clientInfoData.ip) : null;
 
   const newVisit: InsertVisit = {

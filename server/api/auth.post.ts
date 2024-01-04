@@ -18,6 +18,7 @@ export default defineEventHandler(async (event): Promise<AuthResponse> => {
       throw new Error("User not found");
     }
 
+    // eslint-disable-next-line import/no-named-as-default-member
     if (!(await bcrypt.compare(body.password, user.password))) {
       throw new Error("User not found");
     }

@@ -5,9 +5,11 @@ import { db } from "~/server/db/sqlite-service";
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event);
+    // eslint-disable-next-line import/no-named-as-default-member
+    const passwordHashed = await bcrypt.hash(body.password, 10);
     const newUser: InsertUser = {
       username: body.username,
-      password: await bcrypt.hash(body.password, 10),
+      password: passwordHashed,
     };
     db.insert(users).values(newUser).run();
     return { username: newUser.username };
