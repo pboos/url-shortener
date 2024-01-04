@@ -6,8 +6,10 @@ import type {Visit} from "~/model/api/visit";
 const { key: urlKey } = useRoute().params;
 
 const { data: link } = await useFetchWithAuth<Link>(`/api/links/${urlKey}`);
-
 const { data: visits } = await useFetchWithAuth<Visit[]>(`/api/links/${urlKey}/visits`);
+
+// TODO allow DELETE
+// TODO allow EDIT
 </script>
 
 <template>
