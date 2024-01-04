@@ -1,5 +1,5 @@
 import {type InferInsertModel, type InferSelectModel, sql} from "drizzle-orm";
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import {integer, real, sqliteTable, text} from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("users", {
   id: integer("id").notNull().primaryKey({autoIncrement: true}),
@@ -27,7 +27,10 @@ export const visits = sqliteTable("visits", {
   ip: text("ip").notNull(),
   userAgent: text("user_agent"),
   country: text("country"),
+  region: text("region"),
   city: text("city"),
+  latitude: real("latitude"),
+  longitude: real("longitude"),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 export type SelectVisit = InferSelectModel<typeof visits>;
