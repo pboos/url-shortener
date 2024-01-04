@@ -20,11 +20,11 @@ const { data: links, refresh: refreshLinks } =
 </script>
 
 <template>
-  <section class="mt-4 container mx-auto">
+  <section>
     <h1 class="text-2xl font-bold">Dashboard</h1>
     <CreateLinkForm @created="refreshLinks" />
     <div class="links-wrapper mt-10">
-      <LinkCard v-for="link in links" :key="link.id" :link="link"> </LinkCard>
+      <LinkCard v-for="link in links" :key="link.id" :link="link"/>
     </div>
   </section>
 </template>

@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import type {Link} from "~/model/api/link";
+import DateSpan from "~/components/DateSpan.vue";
 
 const props = defineProps<{
   link: Link;
+  fullWidth?: boolean;
 }>();
 
 const navigateToLink = () => {
@@ -11,13 +13,13 @@ const navigateToLink = () => {
 </script>
 
 <template>
-  <div class="card hover:bg-gray-100 w-96 bg-base-100 shadow-xl cursor-pointer" @click="navigateToLink">
+  <div class="card hover:bg-gray-100 bg-base-100 shadow-xl cursor-pointer" :class="{'w-96': !fullWidth}" @click="navigateToLink">
     <div class="card-body">
       <h2 class="card-title">/{{ link.key }}</h2>
       <div class="flex justify-between gap-5 transition-all duration-200">
         <div class="w-1/2">
           <div class="text-xs sm:text-base">
-            {{ link.url.slice(0, 20) + "..." }}
+            {{ fullWidth? link.url : link.url.slice(0, 20) + "..." }}
           </div>
         </div>
         <div class="w-1/2 flex justify-end">
@@ -42,9 +44,7 @@ const navigateToLink = () => {
               </svg>
             </div>
             <div class="">
-              <span class="text-xs sm:text-sm">{{
-                  new Date(link.createdAt).toDateString()
-                }}</span>
+              <DateSpan :date="link.createdAt" />
             </div>
           </div>
           <!--      <CopyBtn :data="config.public.appUrl + '/' + link.key" />-->

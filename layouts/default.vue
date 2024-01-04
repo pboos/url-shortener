@@ -4,8 +4,10 @@ import NavBar from "~/components/NavBar.vue";
 
 <template>
   <div class="layout" data-theme="light">
-    <NavBar />
-    <slot />
+    <NavBar/>
+    <div class="mt-4 container mx-auto">
+      <slot/>
+    </div>
   </div>
 </template>
 
