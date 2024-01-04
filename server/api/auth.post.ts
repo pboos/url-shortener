@@ -2,8 +2,9 @@ import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 import { users } from "@/server/db/schema";
 import { db } from "~/server/db/sqlite-service";
+import type { AuthResponse } from "~/model/api/response/AuthResponse";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event): Promise<AuthResponse> => {
   try {
     const body = await readBody(event);
 

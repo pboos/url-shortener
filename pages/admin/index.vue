@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Link } from "~/model/api/link";
+
 const isAuthenticated = useIsAuthenticated();
 
 if (!isAuthenticated.value) {
@@ -21,8 +23,7 @@ const createLink = async () => {
   });
 };
 
-const {data: links} = await useFetchWithAuth("/api/links");
-
+const { data: links } = await useFetchWithAuth<Link[]>("/api/links");
 </script>
 
 <template>
@@ -31,8 +32,10 @@ const {data: links} = await useFetchWithAuth("/api/links");
     {{ isAuthenticated ? "authenticated" : "not authenticated" }}
     <div>
       <button class="btn btn-primary" @click="createLink">Create Link</button>
-      <div v-if="links" v-for="link in links">
-        {{link.key}} - {{link.url}}
+      <div v-if="links">
+        <div v-for="link in links" :key="link.key">
+          {{ link.key }} - {{ link.url }}
+        </div>
       </div>
     </div>
   </div>

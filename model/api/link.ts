@@ -1,4 +1,4 @@
-import type { LinkPublic } from "~/model/linkPublic";
+import type { LinkPublic } from "~/model/api/linkPublic";
 
 export interface Link extends LinkPublic {
   id: number;

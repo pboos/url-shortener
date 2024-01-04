@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { GetSetupResponse } from "~/model/api/response/getSetupResponse";
+
 const getIsSetup = async () => {
   try {
-    return await useFetchWithAuth("/api/setup");
+    return await useFetchWithAuth<GetSetupResponse>("/api/setup");
   } catch (e) {
     console.error("e", e);
   }

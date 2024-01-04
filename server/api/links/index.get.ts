@@ -4,7 +4,7 @@ import { links } from "~/server/db/schema";
 import { requireAuth } from "~/server/utils/auth";
 import { mapDbLinkToLink } from "~/server/utils/mapper";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   const user = requireAuth(event);
 
   const linksResult = db

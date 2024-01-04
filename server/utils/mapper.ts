@@ -1,5 +1,5 @@
-import { type Link } from "~/model/link";
-import { type SelectLink } from "~/server/db/schema";
+import type { Link } from "~/model/api/link";
+import type { SelectLink } from "~/server/db/schema";
 
 export const mapDbLinkToLink = (link: SelectLink): Link => ({
   id: link.id,
