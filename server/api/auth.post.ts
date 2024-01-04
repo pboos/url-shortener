@@ -2,7 +2,6 @@ import bcrypt from "bcryptjs";
 import {eq} from "drizzle-orm";
 import {users} from "@/server/db/schema";
 import {db} from "~/server/db/sqlite-service";
-import {createAuthToken} from "~/server/utils/auth-token";
 
 export default defineEventHandler(async (event) => {
   try {

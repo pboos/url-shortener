@@ -1,22 +1,10 @@
+import {nanoid} from "nanoid";
 import {db} from "~/server/db/sqlite-service";
 import {InsertLink, links} from "~/server/db/schema";
-import {parseAuthToken} from "~/server/utils/auth-token";
-import {nanoid} from "nanoid";
+import {requireAuth} from "~/server/utils/auth";
 
 export default defineEventHandler(async (event) => {
-
-  // TODO AUTH!
-  const authorization = event.headers.get('Authorization');
-  if (!authorization || !authorization.startsWith('Bearer ')) {
-    throw createError({ statusCode: 401 });
-  }
-  const token = authorization.slice(7);
-  const user = parseAuthToken(token);
-  if (!user) {
-    throw createError({ statusCode: 401 });
-  }
-  console.log('auth user', user);
-
+  const user = requireAuth(event);
   try {
     const body = await readBody(event);
     // TODO check if already exists, if yes, try again until we have one
