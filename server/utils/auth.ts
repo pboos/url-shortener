@@ -12,7 +12,7 @@ export const createAuthToken = (user: AuthTokenUser): string => {
   return jwt.sign(user, secret);
 };
 
-export const parseAuthToken = (token: string): AuthTokenUser|null => {
+export const parseAuthToken = (token: string): AuthTokenUser | null => {
   const decoded = jwt.decode(token);
   if (!decoded) {
     return null;
@@ -21,15 +21,20 @@ export const parseAuthToken = (token: string): AuthTokenUser|null => {
   return decoded as AuthTokenUser;
 };
 
-export const requireAuth = (event: H3Event<EventHandlerRequest>) => {
+export const optionalAuth = (event: H3Event<EventHandlerRequest>): AuthTokenUser | null => {
   const authorization = event.headers.get('Authorization');
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    throw createError({ statusCode: 401 });
+    return null;
   }
   const token = authorization.slice(7);
-  const user = parseAuthToken(token);
+
+  return parseAuthToken(token);
+};
+
+export const requireAuth = (event: H3Event<EventHandlerRequest>): AuthTokenUser => {
+  const user = optionalAuth(event);
   if (!user) {
-    throw createError({ statusCode: 401 });
+    throw createError({statusCode: 401});
   }
 
   return user;
