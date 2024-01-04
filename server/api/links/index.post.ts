@@ -8,6 +8,7 @@ export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event);
     // TODO check if already exists, if yes, try again until we have one
+    // TODO prevent keys 'admin', 'login', 'setup', ...?
     const key = body.key ?? nanoid(6);
     const newLink: InsertLink = {
       userId: user.id,

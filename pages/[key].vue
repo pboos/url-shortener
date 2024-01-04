@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-const params = useRoute().params;
-const urlKey = params.id;
+const {key: urlKey} = useRoute().params;
 
 const linkResponse = await useFetch(`/api/links/${urlKey}`);
 

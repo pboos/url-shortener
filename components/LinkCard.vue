@@ -15,7 +15,7 @@ const config = useRuntimeConfig();
         <div class="w-1/2">
           <div class="text-xl">
             <NuxtLink
-              :to="{ name: 'admin-link-id', params: { id: link.key } }"
+              :to="{ name: 'admin-link-key', params: { key: link.key } }"
               class="text-amber-500 font-bold"
               >/{{ link.key }}
             </NuxtLink>
