@@ -1,7 +1,8 @@
 import geoip from "geoip-lite";
+import { eq, sql } from "drizzle-orm";
 import { requireLinkInPath } from "~/server/utils/links";
 import { clientInfo } from "~/server/utils/clientInfo";
-import { type InsertVisit, visits } from "~/server/db/schema";
+import { type InsertVisit, links, visits } from "~/server/db/schema";
 import { db } from "~/server/db/sqlite-service";
 
 export default defineEventHandler((event) => {
@@ -22,6 +23,10 @@ export default defineEventHandler((event) => {
   };
   try {
     db.insert(visits).values(newVisit).run();
+    db.update(links)
+      .set({ totalVisits: sql`${links.totalVisits} + 1` })
+      .where(eq(links.id, link.id))
+      .run();
   } catch (e) {
     console.error(e);
   }
