@@ -7,7 +7,7 @@ const login = async () => {
     });
     const authToken = useAuthToken();
     authToken.value = response.data.value.token;
-    navigateTo('/');
+    navigateTo('/admin');
   } catch (e) {
     // TODO handle login error (wrong credentials)
   }

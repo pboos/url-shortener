@@ -18,7 +18,7 @@ if (isSetupResponse?.data?.value?.isSetup) {
   });
 }
 
-const createUser = () => {
+const setup = () => {
   useFetch('/api/setup', {
     method: 'POST',
     body: JSON.stringify({
@@ -32,6 +32,6 @@ const createUser = () => {
 <template>
   <div>
     SETUP
-    <button class="btn btn-primary" @click="createUser()">SETUP</button>
+    <button class="btn btn-primary" @click="setup()">SETUP</button>
   </div>
 </template>
