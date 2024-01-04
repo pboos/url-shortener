@@ -24,7 +24,7 @@ const { data: links, refresh: refreshLinks } =
     <h1 class="text-2xl font-bold">Dashboard</h1>
     <CreateLinkForm @created="refreshLinks" />
     <div class="links-wrapper mt-10">
-      <LinkCard v-for="link in links" :key="link.id" :link="link"/>
+      <LinkCard v-for="link in links" :key="link.id" :link="link" />
     </div>
   </section>
 </template>

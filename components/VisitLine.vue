@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type {Visit} from "~/model/api/visit";
+import type { Visit } from "~/model/api/visit";
 import DateSpan from "~/components/DateSpan.vue";
 
-const props = defineProps<{
+defineProps<{
   visit: Visit;
 }>();
 </script>

@@ -31,13 +31,14 @@ const handleLogin = async () => {
       navigateTo("/admin");
     }
   } catch (e) {
-
   } finally {
     isLoading.value = false;
   }
 };
 
-const isFormValid = computed(()=> form.value.username.length > 0 && form.value.password.length > 0);
+const isFormValid = computed(
+  () => form.value.username.length > 0 && form.value.password.length > 0,
+);
 </script>
 
 <template>
@@ -53,23 +54,29 @@ const isFormValid = computed(()=> form.value.username.length > 0 && form.value.p
           <div class="form-group">
             <label for="username">Username</label>
             <input
-                v-model="form.username"
-                type="text"
-                id="username"
-                class="input input-bordered w-full max-w-xs block"
-                placeholder="admin"
+              id="username"
+              v-model="form.username"
+              type="text"
+              class="input input-bordered w-full max-w-xs block"
+              placeholder="admin"
             />
           </div>
           <div class="form-group mt-2">
             <label for="password">Password</label>
             <input
-                v-model="form.password"
-                type="password"
-                id="password"
-                class="input input-bordered w-full max-w-xs block"
+              id="password"
+              v-model="form.password"
+              type="password"
+              class="input input-bordered w-full max-w-xs block"
             />
           </div>
-          <button class="btn btn-primary w-full max-w-xs my-5 text-sm" type="submit" :disabled="!isFormValid">Login</button>
+          <button
+            class="btn btn-primary w-full max-w-xs my-5 text-sm"
+            type="submit"
+            :disabled="!isFormValid"
+          >
+            Login
+          </button>
         </form>
       </div>
     </div>

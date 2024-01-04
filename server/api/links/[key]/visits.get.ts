@@ -1,9 +1,9 @@
-import {requireAuth} from "~/server/utils/auth";
+import { eq } from "drizzle-orm";
+import { requireAuth } from "~/server/utils/auth";
 import { requireLinkInPath } from "~/server/utils/links";
-import {db} from "~/server/db/sqlite-service";
-import { visits} from "~/server/db/schema";
-import {eq} from "drizzle-orm";
-import { mapDbVisitToVisit} from "~/server/utils/mapper";
+import { db } from "~/server/db/sqlite-service";
+import { visits } from "~/server/db/schema";
+import { mapDbVisitToVisit } from "~/server/utils/mapper";
 
 export default defineEventHandler((event) => {
   const link = requireLinkInPath(event);
