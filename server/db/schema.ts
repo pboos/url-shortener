@@ -23,7 +23,7 @@ export type InsertLink = InferInsertModel<typeof links>;
 
 export const visits = sqliteTable("visits", {
   id: integer("id").notNull().primaryKey({ autoIncrement: true }),
-  linkId: text("link_id").notNull().references(() => links.id),
+  linkId: integer("link_id").notNull().references(() => links.id),
   ip: text("ip").notNull(),
   userAgent: text("user_agent"),
   country: text("country"),

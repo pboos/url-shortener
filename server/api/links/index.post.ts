@@ -15,7 +15,6 @@ export default defineEventHandler(async (event) => {
       url: body.url,
     };
     const result = db.insert(links).values(newLink).run();
-    console.log(newLink);
     return { ...newLink };
   } catch (e: any) {
     throw createError({
