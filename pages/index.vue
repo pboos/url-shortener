@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import {useIsAuthenticated} from "~/composables/is-authenticated";
-
 const isAuthenticated = useIsAuthenticated();
 
 if (!isAuthenticated.value) {

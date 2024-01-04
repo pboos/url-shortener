@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import {useFetchWithAuth} from "~/composables/fetch-with-auth";
-
 const getIsSetup = async () => {
   try {
     return await useFetchWithAuth('/api/setup');
