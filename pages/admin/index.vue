@@ -31,8 +31,8 @@ const {data: links} = await useFetchWithAuth("/api/links");
     {{ isAuthenticated ? "authenticated" : "not authenticated" }}
     <div>
       <button class="btn btn-primary" @click="createLink">Create Link</button>
-      <div v-for="test in links">
-        {{test.key}}
+      <div v-if="links" v-for="link in links">
+        {{link.key}} - {{link.url}}
       </div>
     </div>
   </div>
