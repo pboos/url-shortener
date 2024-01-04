@@ -12,6 +12,7 @@ const login = async () => {
     navigateTo("/admin");
   } catch (e) {
     // TODO handle login error (wrong credentials)
+    console.error(e);
   }
 };
 </script>
