@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { Link } from "~/model/api/link";
+import LinkCard from "~/components/LinkCard.vue";
+import CreateLinkForm from "~/components/CreateLinkForm.vue";
 
 const isAuthenticated = useIsAuthenticated();
 
@@ -13,30 +15,16 @@ if (!isAuthenticated.value) {
   });
 }
 
-const createLink = async () => {
-  await useFetchWithAuth("/api/links", {
-    method: "POST",
-    body: JSON.stringify({
-      key: "google",
-      url: "https://google.com",
-    }),
-  });
-};
-
-const { data: links } = await useFetchWithAuth<Link[]>("/api/links");
+const { data: links, refresh: refreshLinks } =
+  await useFetchWithAuth<Link[]>("/api/links");
 </script>
 
 <template>
-  <div>
-    MAIN SITE
-    {{ isAuthenticated ? "authenticated" : "not authenticated" }}
-    <div>
-      <button class="btn btn-primary" @click="createLink">Create Link</button>
-      <div v-if="links">
-        <div v-for="link in links" :key="link.key">
-          {{ link.key }} - {{ link.url }}
-        </div>
-      </div>
+  <section class="mt-4 container mx-auto">
+    <h1 class="text-2xl font-bold">Dashboard</h1>
+    <CreateLinkForm @created="refreshLinks" />
+    <div class="links-wrapper mt-10">
+      <LinkCard v-for="link in links" :key="link.id" :link="link"> </LinkCard>
     </div>
-  </div>
+  </section>
 </template>

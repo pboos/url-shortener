@@ -3,7 +3,7 @@ import NavBar from "~/components/NavBar.vue";
 </script>
 
 <template>
-  <div class="layout">
+  <div class="layout" data-theme="light">
     <NavBar />
     <slot />
   </div>
@@ -11,7 +11,6 @@ import NavBar from "~/components/NavBar.vue";
 
 <style scoped>
 .layout {
-  @apply text-white/70 bg-black relative;
   min-height: 100vh;
 }
 </style>
