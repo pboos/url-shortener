@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const secret = process.env.NUXT_JWT_SECRET ?? 'mysecrettoken';
-    const token: string = jwt.sign({ username: user.username }, secret);
+    const token: string = jwt.sign({ id: user.id, username: user.username }, secret);
 
     return {token};
   } catch (e: any) {
