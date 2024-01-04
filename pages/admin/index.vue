@@ -4,19 +4,19 @@ const isAuthenticated = useIsAuthenticated();
 if (!isAuthenticated.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: 'Page Not Found',
+    statusMessage: "Page Not Found",
     data: {
-      myCustomField: true
-    }
+      myCustomField: true,
+    },
   });
 }
 
 const createLink = async () => {
-  await useFetchWithAuth('/api/links', {
-    method: 'POST',
+  await useFetchWithAuth("/api/links", {
+    method: "POST",
     body: JSON.stringify({
-      key: 'google',
-      url: 'https://google.com'
+      key: "google",
+      url: "https://google.com",
     }),
   });
 };
@@ -25,7 +25,7 @@ const createLink = async () => {
 <template>
   <div>
     MAIN SITE
-    {{ isAuthenticated ? 'authenticated' : 'not authenticated' }}
+    {{ isAuthenticated ? "authenticated" : "not authenticated" }}
     <div>
       <button class="btn btn-primary" @click="createLink">Create Link</button>
     </div>

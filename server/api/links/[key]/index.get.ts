@@ -1,9 +1,9 @@
-import {optionalAuth} from "~/server/utils/auth";
-import {Link} from "~/model/link";
-import {LinkPublic} from "~/model/linkPublic";
-import {requireLinkInPath} from "~/server/utils/links";
+import { optionalAuth } from "~/server/utils/auth";
+import { Link } from "~/model/link";
+import { LinkPublic } from "~/model/linkPublic";
+import { requireLinkInPath } from "~/server/utils/links";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   const link = requireLinkInPath(event);
 
   const authUser = optionalAuth(event);
@@ -21,5 +21,5 @@ export default defineEventHandler(async (event) => {
   return {
     key: link.key,
     url: link.url,
-  } satisfies LinkPublic
+  } satisfies LinkPublic;
 });

@@ -25,16 +25,19 @@ bun install
 ## Drizzle
 
 Generate migrations
+
 ```bash
 npm exec drizzle-kit generate:sqlite --out migrations --schema db/schema.ts
 ```
 
 Push migrations to database
+
 ```bash
 npm exec drizzle-kit push:sqlite
 ```
 
 Start Drizzle Studio (graphical UI to manipulate DB)
+
 ```bash
 npm exec drizzle-kit studio
 ```

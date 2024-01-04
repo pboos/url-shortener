@@ -1,13 +1,13 @@
 <script setup lang="ts">
 const login = async () => {
   try {
-    const response = await useFetchWithAuth('/api/auth', {
-      method: 'POST',
-      body: {username: 'admin', password: 'admin'}
+    const response = await useFetchWithAuth("/api/auth", {
+      method: "POST",
+      body: { username: "admin", password: "admin" },
     });
     const authToken = useAuthToken();
     authToken.value = response.data.value.token;
-    navigateTo('/admin');
+    navigateTo("/admin");
   } catch (e) {
     // TODO handle login error (wrong credentials)
   }

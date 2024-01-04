@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 const params = useRoute().params;
 const urlKey = params.id;
 
@@ -17,10 +16,10 @@ const linkData = await useAsyncData(async () => {
 });
 
 if (linkData.data.value) {
-  await useFetch(`/api/links/${urlKey}/track`, {method: 'POST'});
-  navigateTo(linkData.data.value.url, {external: true});
+  await useFetch(`/api/links/${urlKey}/track`, { method: "POST" });
+  navigateTo(linkData.data.value.url, { external: true });
 } else {
-  throw createError({statusCode: 404});
+  throw createError({ statusCode: 404 });
 }
 </script>
 

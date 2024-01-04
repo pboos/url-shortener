@@ -1,7 +1,7 @@
-import {nanoid} from "nanoid";
-import {db} from "~/server/db/sqlite-service";
-import {InsertLink, links} from "~/server/db/schema";
-import {requireAuth} from "~/server/utils/auth";
+import { nanoid } from "nanoid";
+import { db } from "~/server/db/sqlite-service";
+import { InsertLink, links } from "~/server/db/schema";
+import { requireAuth } from "~/server/utils/auth";
 
 export default defineEventHandler(async (event) => {
   const user = requireAuth(event);
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
       key,
       url: body.url,
     };
-    const result = db.insert(links).values(newLink).run();
+    db.insert(links).values(newLink).run();
     return { ...newLink };
   } catch (e: any) {
     throw createError({

@@ -1,8 +1,8 @@
+import { count } from "drizzle-orm";
 import { users } from "@/server/db/schema";
 import { db } from "~/server/db/sqlite-service";
-import { count } from "drizzle-orm";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async () => {
   try {
     const result = await db.select({ value: count() }).from(users);
     const usersCount = result[0].value;
