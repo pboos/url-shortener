@@ -12,7 +12,7 @@ export type InsertUser = InferInsertModel<typeof users>;
 
 export const links = sqliteTable("links", {
   id: integer("id").notNull().primaryKey({autoIncrement: true}),
-  user_id: integer("user_id").notNull().references(() => users.id),
+  userId: integer("user_id").notNull().references(() => users.id),
   key: text("key").notNull().unique(),
   url: text("url").notNull(),
   totalVisits: integer("total_visits").notNull().default(0),
@@ -23,7 +23,7 @@ export type InsertLink = InferInsertModel<typeof links>;
 
 export const visits = sqliteTable("visits", {
   id: integer("id").notNull().primaryKey({ autoIncrement: true }),
-  link_id: text("link_id").notNull().references(() => links.id),
+  linkId: text("link_id").notNull().references(() => links.id),
   ip: text("ip").notNull(),
   userAgent: text("user_agent"),
   country: text("country"),
