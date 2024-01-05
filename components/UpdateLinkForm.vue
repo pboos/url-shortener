@@ -1,10 +1,13 @@
 <script lang="ts" setup>
-import { nanoid } from "nanoid";
+import type { Link } from "~/model/api/link";
 
-const emits = defineEmits(["created"]);
+const emit = defineEmits<{
+  (e: "updated", link: Link): void;
+}>();
 
-const url = ref<string>("");
-const key = ref<string>("");
+const props = defineProps<{ link: Link }>();
+const url = ref<string>(props.link.url);
+const key = ref<string>(props.link.key);
 const isSubmitting = ref<boolean>(false);
 
 const errors = ref<{
@@ -12,9 +15,7 @@ const errors = ref<{
   key: string | null;
 }>({ url: null, key: null });
 
-onMounted(() => (key.value = nanoid(6)));
-
-const createLink = async () => {
+const updateLink = async () => {
   const body: { url: string; key?: string } = { url: url.value };
   if (key.value) {
     body.key = key.value;
@@ -23,14 +24,12 @@ const createLink = async () => {
   isSubmitting.value = true;
 
   try {
-    const response = await useFetchWithAuth("/api/links", {
+    const response = await useFetchWithAuth(`/api/links/${props.link.key}`, {
       method: "POST",
       body,
     });
     if (!response.error.value) {
-      url.value = "";
-      key.value = nanoid(6);
-      emits("created");
+      emit("updated", { ...props.link, url: url.value, key: key.value });
     }
   } finally {
     isSubmitting.value = false;
@@ -42,10 +41,10 @@ const createLink = async () => {
   <LinkForm
     v-model:url="url"
     v-model:link-key="key"
-    title="Create Link"
-    button="Shorten"
+    title="Update Link"
+    button="Save"
     :errors="errors"
     :is-submitting="isSubmitting"
-    @submit="createLink"
+    @submit="updateLink"
   />
 </template>

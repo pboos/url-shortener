@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 import { db } from "~/server/db/sqlite-service";
 import { type InsertLink, links } from "~/server/db/schema";
 import { requireAuth } from "~/server/utils/auth";
-import { isKeyForbidden } from "~/server/utils/forbidden-keys";
+import { requireLinkKeyAcceptable } from "~/server/utils/links";
 
 const createRandomKey = () => {
   // TODO check if already exists, if yes, try again until we have one
@@ -14,12 +14,7 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const key = body.key ?? createRandomKey();
 
-  if (isKeyForbidden(key)) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Key is forbidden",
-    });
-  }
+  requireLinkKeyAcceptable(key);
 
   const newLink: InsertLink = {
     userId: user.id,

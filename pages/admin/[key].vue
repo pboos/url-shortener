@@ -11,13 +11,24 @@ const { data: visits } = await useFetchWithAuth<Visit[]>(
   `/api/links/${urlKey}/visits`,
 );
 
+const onUpdated = (newLink: Link) => {
+  if (link.value?.key !== newLink.key) {
+    navigateTo(buildNavigateToAdminLink(newLink.key));
+  }
+};
+
 // TODO allow DELETE
-// TODO allow EDIT
 </script>
 
 <template>
   <div>
     <LinkCard v-if="link" :link="link" :full-width="true" />
+    <UpdateLinkForm
+      v-if="link"
+      :link="link"
+      class="mt-4"
+      @updated="onUpdated"
+    />
 
     <div v-if="visits && visits.length" class="mt-4">
       <h2 class="text-2xl">Visits</h2>

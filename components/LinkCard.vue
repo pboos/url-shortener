@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 import type { Link } from "~/model/api/link";
 import DateSpan from "~/components/DateSpan.vue";
+import { buildNavigateToAdminLink } from "~/utils/navigation";
 
 const props = defineProps<{
   link: Link;
   fullWidth?: boolean;
 }>();
 
-const navigateToLink = () => {
-  navigateTo({ name: "admin-key", params: { key: props.link.key } });
-};
+const navigateToLink = () =>
+  navigateTo(buildNavigateToAdminLink(props.link.key));
 </script>
 
 <template>
