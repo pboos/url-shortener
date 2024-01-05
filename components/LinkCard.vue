@@ -51,7 +51,6 @@ const navigateToLink = () =>
               <DateSpan :date="link.createdAt" />
             </div>
           </div>
-          <!--      <CopyBtn :data="config.public.appUrl + '/' + link.key" />-->
         </div>
       </div>
     </div>

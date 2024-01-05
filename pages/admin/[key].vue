@@ -29,6 +29,7 @@ const onUpdated = (newLink: Link) => {
       class="mt-4"
       @updated="onUpdated"
     />
+    <DeleteLinkCard v-if="link" :link="link" class="mt-4" />
 
     <div v-if="visits && visits.length" class="mt-4">
       <h2 class="text-2xl">Visits</h2>
