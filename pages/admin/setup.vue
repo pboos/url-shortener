@@ -58,7 +58,7 @@ const handleSetup = async () => {
 };
 
 const isFormValid = computed(
-    () => form.value.username.length > 0 && form.value.password.length > 0,
+  () => form.value.username.length > 0 && form.value.password.length > 0,
 );
 </script>
 
@@ -66,7 +66,9 @@ const isFormValid = computed(
   <div class="card w-full md:w-96 bg-base-100 shadow-xl">
     <div class="card-body">
       <h2 class="card-title">Setup</h2>
-      <div class="my-2">Setup your server by setting a username and password for your login.</div>
+      <div class="my-2">
+        Setup your server by setting a username and password for your login.
+      </div>
       <div v-if="err" class="my-2 text-error">
         {{ err }}
       </div>
@@ -75,26 +77,26 @@ const isFormValid = computed(
           <div class="form-group">
             <label for="username">Username</label>
             <input
-                id="username"
-                v-model="form.username"
-                type="text"
-                class="input input-bordered w-full max-w-xs block"
-                placeholder="admin"
+              id="username"
+              v-model="form.username"
+              type="text"
+              class="input input-bordered w-full max-w-xs block"
+              placeholder="admin"
             />
           </div>
           <div class="form-group mt-2">
             <label for="password">Password</label>
             <input
-                id="password"
-                v-model="form.password"
-                type="password"
-                class="input input-bordered w-full max-w-xs block"
+              id="password"
+              v-model="form.password"
+              type="password"
+              class="input input-bordered w-full max-w-xs block"
             />
           </div>
           <button
-              class="btn btn-primary w-full max-w-xs my-5 text-sm"
-              type="submit"
-              :disabled="!isFormValid"
+            class="btn btn-primary w-full max-w-xs my-5 text-sm"
+            type="submit"
+            :disabled="!isFormValid"
           >
             Setup
           </button>
