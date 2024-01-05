@@ -43,7 +43,7 @@ const createLink = async () => {
 };
 
 const isKeyValid = computed(
-  () => form.value.key === null || form.value.key.length > 3,
+  () => form.value.key === null || form.value.key.length >= 6,
 );
 const isFormValid = computed(
   () =>
@@ -84,7 +84,6 @@ const isFormValid = computed(
             for="key"
             type="text"
             placeholder="enter a key (optional)"
-            required
             min="6"
           />
           <span v-if="errors.key" class="text-xs py-1 text-red-500">{{
