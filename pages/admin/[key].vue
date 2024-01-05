@@ -19,7 +19,7 @@ const { data: visits } = await useFetchWithAuth<Visit[]>(
   <div>
     <LinkCard v-if="link" :link="link" :full-width="true" />
 
-    <div v-if="visits" class="mt-4">
+    <div v-if="visits && visits.length" class="mt-4">
       <h2 class="text-2xl">Visits</h2>
       <VisitLine
         v-for="visit in visits"

@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       password: passwordHashed,
     };
     db.insert(users).values(newUser).run();
-    return { username: newUser.username };
+    return { };
   } catch (e: any) {
     throw createError({
       statusCode: 400,
