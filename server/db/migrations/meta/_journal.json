@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1704577092100,
+      "tag": "0000_cheerful_thunderbolt_ross",
+      "breakpoints": true
+    }
+  ]
+}
