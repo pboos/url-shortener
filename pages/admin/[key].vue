@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import LinkCard from "~/components/LinkCard.vue";
 import VisitLine from "~/components/VisitLine.vue";
-import type { Link } from "~/model/api/link";
+import type { Link, LinkQrConfig } from "~/model/api/link";
 import type { Visit } from "~/model/api/visit";
+import LinkQrCodeWithEdit from "~/components/LinkQrCodeWithEdit.vue";
 
 useRequireAuthenticated();
 
@@ -20,56 +21,17 @@ const onUpdated = (newLink: Link) => {
   link.value = newLink;
 };
 
-const requestUrl = useRequestURL();
-const shortUrl = computed(() => {
-  if (!link.value) {
-    return null;
+const onQrCodeUpdated = (config: LinkQrConfig) => {
+  if (link.value) {
+    link.value = { ...link.value, qrConfig: config };
   }
-  const config = useRuntimeConfig();
-  let baseUrl = config.app.baseURL.startsWith("http")
-    ? config.app.baseURL
-    : `${requestUrl.origin}${config.app.baseURL}`;
-  baseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
-  return `${baseUrl}${link.value.key}`;
-});
-
-// TODO get image options from link.qrConfig
+};
 </script>
 
 <template>
   <div v-if="link">
-    {{ shortUrl }}
     <LinkCard :link="link" :full-width="true" />
-    <QRCodeVue3
-      v-if="shortUrl"
-      :value="shortUrl"
-      class="my-4"
-      :width="400"
-      :height="400"
-      image="https://images-us-prod.cms.commerce.dynamics.com/cms/api/fswvqbgntk/imageFileData/MA2dSF?ver=5e6b"
-      :qr-options="{ typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'H' }"
-      :image-options="{
-        hideBackgroundDots: true,
-        imageSize: 0.5,
-        margin: 2,
-        crossOrigin: 'anonymous',
-      }"
-      :dots-options="{
-        type: 'square',
-        color: '#000000',
-        // gradient: {
-        //   type: 'linear',
-        //   rotation: 0,
-        //   colorStops: [
-        //     { offset: 0, color: '#26249a' },
-        //     { offset: 1, color: '#26249a' },
-        //   ],
-        // },
-      }"
-      :background-options="{ color: '#ffffff' }"
-      :corners-square-options="{ type: 'square', color: '#000000' }"
-      :corners-dot-options="{ type: undefined, color: '#000000' }"
-    />
+    <LinkQrCodeWithEdit :link="link" class="mt-4" @updated="onQrCodeUpdated" />
     <UpdateLinkForm :link="link" class="mt-4" @updated="onUpdated" />
     <DeleteLinkCard :link="link" class="mt-4" />
 

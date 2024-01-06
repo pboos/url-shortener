@@ -2,12 +2,8 @@
 const isAuthenticated = useIsAuthenticated();
 const authToken = useAuthToken();
 const handleLogout = () => {
-  try {
-    authToken.value = undefined;
-    navigateTo("/admin/login");
-  } catch (error) {
-    console.log(error);
-  }
+  authToken.value = undefined;
+  navigateTo("/admin/login");
 };
 </script>
 

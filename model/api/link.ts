@@ -11,7 +11,9 @@ interface Gradient {
   colorStops: ColorStop[];
 }
 
-interface LinkQrConfig {
+export interface LinkQrConfig {
+  width?: number;
+  height?: number;
   image?: string;
   imageOptions?: {
     hideBackgroundDots?: boolean;
@@ -19,7 +21,7 @@ interface LinkQrConfig {
     margin?: number;
     crossOrigin?: "anonymous" | "use-credentials";
   };
-  dotOptions: {
+  dotsOptions?: {
     type?:
       | "rounded"
       | "dots"
@@ -30,16 +32,16 @@ interface LinkQrConfig {
     color?: string;
     gradient?: Gradient;
   };
-  backgroundOptions: {
+  backgroundOptions?: {
     color?: string;
     gradient?: Gradient;
   };
-  cornersSquareOptions: {
+  cornersSquareOptions?: {
     type?: "dot" | "square" | "extra-rounded";
     color?: string;
     gradient?: Gradient;
   };
-  cornersDotOptions: {
+  cornersDotOptions?: {
     type?: "dot" | "square";
     color?: string;
     gradient?: Gradient;

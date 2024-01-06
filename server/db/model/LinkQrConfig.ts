@@ -10,6 +10,8 @@ interface Gradient {
 }
 
 export interface LinkQrConfig {
+  width?: number;
+  height?: number;
   image?: string;
   imageOptions?: {
     hideBackgroundDots?: boolean;
@@ -17,7 +19,7 @@ export interface LinkQrConfig {
     margin?: number;
     crossOrigin?: "anonymous" | "use-credentials";
   };
-  dotOptions: {
+  dotsOptions?: {
     type?:
       | "rounded"
       | "dots"
@@ -28,16 +30,16 @@ export interface LinkQrConfig {
     color?: string;
     gradient?: Gradient;
   };
-  backgroundOptions: {
+  backgroundOptions?: {
     color?: string;
     gradient?: Gradient;
   };
-  cornersSquareOptions: {
+  cornersSquareOptions?: {
     type?: "dot" | "square" | "extra-rounded";
     color?: string;
     gradient?: Gradient;
   };
-  cornersDotOptions: {
+  cornersDotOptions?: {
     type?: "dot" | "square";
     color?: string;
     gradient?: Gradient;

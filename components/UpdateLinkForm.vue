@@ -16,12 +16,12 @@ const errors = ref<{
 }>({ url: null, key: null });
 
 const updateLink = async () => {
+  isSubmitting.value = true;
+
   const body: { url: string; key?: string } = { url: url.value };
   if (key.value) {
     body.key = key.value;
   }
-
-  isSubmitting.value = true;
 
   try {
     const response = await useFetchWithAuth(`/api/links/${props.link.key}`, {
