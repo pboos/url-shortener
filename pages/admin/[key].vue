@@ -17,6 +17,7 @@ const onUpdated = (newLink: Link) => {
   if (link.value?.key !== newLink.key) {
     navigateTo(buildNavigateToAdminLink(newLink.key));
   }
+  link.value = newLink;
 };
 
 const requestUrl = useRequestURL();

@@ -25,7 +25,7 @@ const updateLink = async () => {
 
   try {
     const response = await useFetchWithAuth(`/api/links/${props.link.key}`, {
-      method: "POST",
+      method: "PUT",
       body,
     });
     if (!response.error.value) {
