@@ -9,7 +9,9 @@ const handleLogout = () => {
 
 <template>
   <div class="border-b border-black/20">
-    <nav class="container mx-auto py-4 flex justify-between items-center">
+    <nav
+      class="container mx-auto py-4 flex justify-between items-center max-sm:px-4"
+    >
       <NuxtLink to="/admin" class="navbar-brand text-2xl font-bold"
         >URL Shortener</NuxtLink
       >
