@@ -7,7 +7,7 @@ import { mapDbLinkToLink } from "~/server/utils/mapper";
 export default defineEventHandler((event) => {
   const user = requireAuth(event);
 
-  const linksResult = db
+  const linksResult = db()
     .select()
     .from(links)
     .where(eq(links.userId, user.id))

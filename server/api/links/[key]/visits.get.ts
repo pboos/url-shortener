@@ -12,7 +12,7 @@ export default defineEventHandler((event) => {
     throw createError({ statusCode: 403 });
   }
 
-  const visitsResult = db
+  const visitsResult = db()
     .select()
     .from(visits)
     .where(eq(visits.linkId, link.id))

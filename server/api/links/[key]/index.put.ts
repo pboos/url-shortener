@@ -23,7 +23,8 @@ export default defineEventHandler(async (event): Promise<Link> => {
     const qrConfig = body.qrConfig ?? link.qrConfig;
     console.log(qrConfig);
     requireLinkKeyAcceptable(key);
-    db.update(links)
+    db()
+      .update(links)
       .set({ key, url, qrConfig })
       .where(eq(links.id, link.id))
       .run();

@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
   };
 
   try {
-    db.insert(links).values(newLink).run();
+    db().insert(links).values(newLink).run();
     return { ...newLink };
   } catch (e: any) {
     throw createError({

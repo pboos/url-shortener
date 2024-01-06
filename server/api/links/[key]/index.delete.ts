@@ -13,7 +13,7 @@ export default defineEventHandler((event) => {
   }
 
   try {
-    db.delete(links).where(eq(links.id, link.id)).run();
+    db().delete(links).where(eq(links.id, link.id)).run();
   } catch (e: any) {
     throw createError({
       statusCode: 400,

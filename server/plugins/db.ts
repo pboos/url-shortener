@@ -3,5 +3,5 @@ import DrizzleConfig from "../../drizzle.config.js";
 import { db } from "~/server/db/sqlite-service";
 
 export default defineNitroPlugin(() => {
-  migrate(db, { migrationsFolder: DrizzleConfig.out });
+  migrate(db(), { migrationsFolder: DrizzleConfig.out });
 });

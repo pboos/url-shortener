@@ -5,7 +5,7 @@ import type { GetSetupResponse } from "~/model/api/response/GetSetupResponse";
 
 export default defineEventHandler(async (): Promise<GetSetupResponse> => {
   try {
-    const result = await db.select({ value: count() }).from(users);
+    const result = await db().select({ value: count() }).from(users);
     const usersCount = result[0].value;
 
     return { isSetup: usersCount > 0 };

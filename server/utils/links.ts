@@ -7,7 +7,7 @@ import { isKeyForbidden } from "~/server/utils/forbidden-keys";
 export const requireLinkInPath = (event: H3Event<EventHandlerRequest>) => {
   const { key } = getRouterParams(event);
 
-  const link = db.select().from(links).where(eq(links.key, key)).get();
+  const link = db().select().from(links).where(eq(links.key, key)).get();
 
   if (!link) {
     throw createError({ statusCode: 404 });

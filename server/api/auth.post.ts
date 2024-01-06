@@ -8,7 +8,7 @@ export default defineEventHandler(async (event): Promise<AuthResponse> => {
   try {
     const body = await readBody(event);
 
-    const user = db
+    const user = db()
       .select()
       .from(users)
       .where(eq(users.username, body.username))

@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
       username: body.username,
       password: passwordHashed,
     };
-    db.insert(users).values(newUser).run();
+    db().insert(users).values(newUser).run();
     return {};
   } catch (e: any) {
     throw createError({

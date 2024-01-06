@@ -22,8 +22,9 @@ export default defineEventHandler((event) => {
     longitude: geo?.ll?.[1],
   };
   try {
-    db.insert(visits).values(newVisit).run();
-    db.update(links)
+    db().insert(visits).values(newVisit).run();
+    db()
+      .update(links)
       .set({ totalVisits: sql`${links.totalVisits} + 1` })
       .where(eq(links.id, link.id))
       .run();
