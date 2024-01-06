@@ -7,6 +7,7 @@ export const mapDbLinkToLink = (link: SelectLink): Link => ({
   userId: link.userId,
   key: link.key,
   url: link.url,
+  qrConfig: link.qrConfig ?? undefined,
   totalVisits: link.totalVisits,
   createdAt: new Date(link.createdAt).toISOString(),
 });

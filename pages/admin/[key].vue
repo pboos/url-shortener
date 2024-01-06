@@ -33,7 +33,7 @@ const shortUrl = computed(() => {
   return `${baseUrl}${link.value.key}`;
 });
 
-// TODO qr image logo configurable (store on link in database)
+// TODO get image options from link.qrConfig
 </script>
 
 <template>

@@ -1,5 +1,12 @@
 import { type InferInsertModel, type InferSelectModel, sql } from "drizzle-orm";
-import { integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import {
+  blob,
+  integer,
+  real,
+  sqliteTable,
+  text,
+} from "drizzle-orm/sqlite-core";
+import type { LinkQrConfig } from "~/server/db/model/LinkQrConfig";
 
 export const users = sqliteTable("users", {
   id: integer("id").notNull().primaryKey({ autoIncrement: true }),
@@ -19,6 +26,7 @@ export const links = sqliteTable("links", {
     .references(() => users.id),
   key: text("key").notNull().unique(),
   url: text("url").notNull(),
+  qrConfig: blob("qr_config_json", { mode: "json" }).$type<LinkQrConfig>(),
   totalVisits: integer("total_visits").notNull().default(0),
   createdAt: text("created_at")
     .notNull()

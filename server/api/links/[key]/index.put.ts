@@ -20,8 +20,12 @@ export default defineEventHandler(async (event): Promise<Link> => {
     const body = await readBody(event);
     const key = body.key ?? link.key;
     const url = body.url ?? link.url;
+    const qrConfig = body.qrConfig ?? link.qrConfig;
     requireLinkKeyAcceptable(key);
-    db.update(links).set({ key, url }).where(eq(links.id, link.id)).run();
+    db.update(links)
+      .set({ key, url, qrConfig })
+      .where(eq(links.id, link.id))
+      .run();
 
     return mapDbLinkToLink({ ...link, key: body.key, url: body.url });
   } catch (e: any) {

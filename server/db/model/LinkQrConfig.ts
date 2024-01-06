@@ -1,5 +1,3 @@
-import type { LinkPublic } from "~/model/api/linkPublic";
-
 interface ColorStop {
   offset: number;
   color: string;
@@ -11,7 +9,7 @@ interface Gradient {
   colorStops: ColorStop[];
 }
 
-interface LinkQrConfig {
+export interface LinkQrConfig {
   image?: string;
   imageOptions?: {
     hideBackgroundDots?: boolean;
@@ -44,12 +42,4 @@ interface LinkQrConfig {
     color?: string;
     gradient?: Gradient;
   };
-}
-
-export interface Link extends LinkPublic {
-  id: number;
-  userId: number;
-  qrConfig?: LinkQrConfig;
-  totalVisits: number;
-  createdAt: string;
 }
