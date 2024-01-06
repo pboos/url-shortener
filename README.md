@@ -4,6 +4,13 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 
 Followed [this tutorial](https://dev.to/aaronksaunders/drizzle-orm-sqlite-and-nuxt-js-getting-started-374m) for setting up sqlite & drizzle.
 
+## Env variables
+
+- `NUXT_JWT_SECRET` (optional)
+  - Defines the secret used to sign JWT tokens.
+- `NUXT_APP_BASE_URL` (optional)
+  - Defines the base URL of the application. Defaults to `/`.
+
 ## Setup
 
 Make sure to install the dependencies:

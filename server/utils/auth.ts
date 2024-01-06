@@ -6,7 +6,9 @@ interface AuthTokenUser {
   username: string;
 }
 
-const secret = process.env.NUXT_JWT_SECRET ?? "mysecrettoken";
+const secret =
+  process.env.NUXT_JWT_SECRET ??
+  "4be4f4806161fec5d1af8c04b01e3533f566fd8e5b53ef860f4aca82d95a0471";
 
 export const createAuthToken = (user: AuthTokenUser): string => {
   // eslint-disable-next-line import/no-named-as-default-member
