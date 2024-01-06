@@ -5,7 +5,7 @@ export default defineNuxtModule({
     // import { MyComponent as MyAutoImportedComponent } from 'my-npm-package'
     addComponent({
       name: "QRCodeVue3",
-      filePath: "qr-code-generator-vue3",
+      filePath: "qrcode-vue3",
       mode: "client",
     });
   },
