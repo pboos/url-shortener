@@ -4,6 +4,8 @@ import VisitLine from "~/components/VisitLine.vue";
 import type { Link } from "~/model/api/link";
 import type { Visit } from "~/model/api/visit";
 
+useRequireAuthenticated();
+
 const { key: urlKey } = useRoute().params;
 
 const { data: link } = await useFetchWithAuth<Link>(`/api/links/${urlKey}`);
@@ -43,6 +45,7 @@ const shortUrl = computed(() => {
       class="my-4"
       :width="400"
       :height="400"
+      image="https://images-us-prod.cms.commerce.dynamics.com/cms/api/fswvqbgntk/imageFileData/MA2dSF?ver=5e6b"
       :qr-options="{ typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'H' }"
       :image-options="{
         hideBackgroundDots: true,

@@ -3,17 +3,7 @@ import type { Link } from "~/model/api/link";
 import LinkCard from "~/components/LinkCard.vue";
 import CreateLinkForm from "~/components/CreateLinkForm.vue";
 
-const isAuthenticated = useIsAuthenticated();
-
-if (!isAuthenticated.value) {
-  throw createError({
-    statusCode: 404,
-    statusMessage: "Page Not Found",
-    data: {
-      myCustomField: true,
-    },
-  });
-}
+useRequireAuthenticated();
 
 const { data: links, refresh: refreshLinks } =
   await useFetchWithAuth<Link[]>("/api/links");
