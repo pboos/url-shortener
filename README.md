@@ -1,8 +1,32 @@
-# Nuxt 3 Minimal Starter
+# URL Shortener service
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+URL Shortener service setup with Nuxt.js with a local sqlite database using drizzle.
 
-Followed [this tutorial](https://dev.to/aaronksaunders/drizzle-orm-sqlite-and-nuxt-js-getting-started-374m) for setting up sqlite & drizzle.
+## Docker
+
+Run this on your server using docker:
+```bash
+docker run --rm \
+  -p 3000:3000 \
+  -env NUXT_JWT_SECRET=mysecret \
+  -env NUXT_APP_BASE_URL=https://mydomain.com/ \
+   -v $(pwd)/data:/app/data pboos/url-shortener
+```
+
+Or docker-compose:
+```bash
+version: '3.1'
+
+services:
+  pes-url-shortener:
+    image: pboos/url-shortener
+    restart: unless-stopped
+    volumes:
+      - /data/pes.ch/url-shortener-data:/app/data
+    environment:
+      NUXT_JWT_SECRET: 0a1b1709a744d5de86bf96909351ec1fcec769cbce49e146ac69b3a95736acbb
+      NUXT_BASE_URL: https://pes.ch/
+```
 
 ## Env variables
 
@@ -18,18 +42,9 @@ Make sure to install the dependencies:
 ```bash
 # npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Drizzle
+### Drizzle
 
 Generate migrations
 
@@ -56,15 +71,6 @@ Start the development server on `http://localhost:3000`:
 ```bash
 # npm
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
@@ -74,15 +80,6 @@ Build the application for production:
 ```bash
 # npm
 npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
@@ -90,15 +87,6 @@ Locally preview production build:
 ```bash
 # npm
 npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
