@@ -49,7 +49,9 @@ jobs:
           docker build -t shortener:ci .
           docker run -d --name shortener -p 127.0.0.1:3000:3000 shortener:ci
           trap 'docker logs shortener && docker rm -f shortener' EXIT
-          curl --fail --retry 10 --retry-connrefused --retry-delay 1 http://localhost:3000/api/setup | jq -e '.isSetup == false'
+          curl --fail --silent --show-error --retry 10 --retry-all-errors --retry-delay 1 --max-time 3 \
+            --output "$RUNNER_TEMP/setup.json" http://127.0.0.1:3000/api/setup
+          jq -e '.isSetup == false' "$RUNNER_TEMP/setup.json"
       - name: Publish to GitHub Container Registry
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
