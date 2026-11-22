@@ -1,14 +1,17 @@
-FROM node:20 as build
+FROM node:24-bookworm-slim AS build
 WORKDIR /app
-COPY . /app
-RUN npm install
+ENV NEXT_TELEMETRY_DISABLED=1
+COPY package*.json ./
+RUN npm ci
+COPY . .
 RUN npm run build
-RUN cp -r node_modules/geoip-lite/data .output/server/node_modules/geoip-lite/
 
-
-FROM node:20-slim as app
+FROM node:24-bookworm-slim AS runtime
+LABEL org.opencontainers.image.source="https://github.com/pboos/url-shortener"
 WORKDIR /app
-COPY --from=build --chown=node:node /app/.output /app
-COPY --from=build --chown=node:node /app/server/db/migrations /app/server/db/migrations
+ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=3000 HOSTNAME=0.0.0.0
+COPY --from=build /app/.next/standalone ./
+RUN mkdir -p data .next/cache && chown node:node data .next/cache
+USER node
 EXPOSE 3000
-CMD [ "node", "server/index.mjs" ]
+CMD ["node", "server.js"]

@@ -1,0 +1,27 @@
+.field {
+  composes: field from "./controls.module.css";
+}
+.form {
+  composes: form from "./controls.module.css";
+}
+.formActions {
+  composes: formActions from "./controls.module.css";
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.inputGroup > span {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+  max-width: 60%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.inputGroup input {
+  min-width: 0;
+  flex: 1;
+}

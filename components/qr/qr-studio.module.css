@@ -1,0 +1,79 @@
+.panel {
+  min-width: 0;
+  align-self: start;
+}
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+}
+.preview {
+  display: grid;
+  place-items: center;
+  background: var(--muted);
+  border-radius: 8px;
+  padding: 14px;
+  min-height: 155px;
+}
+.preview svg {
+  display: block;
+  width: min(100%, 210px);
+  height: auto;
+  box-shadow: 0 1px 5px #213b291a;
+}
+.controls {
+  border: 0;
+  padding: 0;
+  margin: 16px 0 0;
+  min-width: 0;
+  display: grid;
+  gap: 12px;
+}
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.colors,
+.export,
+.logo {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.colors > *,
+.export button {
+  flex: 1;
+}
+.colorValue {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.colors small {
+  font-family: monospace;
+  font-size: 11px;
+}
+.colors input {
+  width: 34px;
+  height: 32px;
+  padding: 3px;
+  cursor: pointer;
+}
+.panel p,
+.feedback {
+  font-size: 13px;
+  line-height: 1.45;
+}
+.feedback:not(:empty) {
+  display: block;
+  margin-top: 10px;
+  color: var(--primary);
+}
+.error {
+  color: var(--destructive);
+}

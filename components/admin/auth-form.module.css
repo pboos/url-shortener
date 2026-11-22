@@ -1,0 +1,69 @@
+.brand {
+  composes: brand from "./controls.module.css";
+}
+.brandDot {
+  composes: brandDot from "./controls.module.css";
+}
+.brandIcon {
+  composes: brandIcon from "./controls.module.css";
+}
+.field {
+  composes: field from "./controls.module.css";
+}
+.form {
+  composes: form from "./controls.module.css";
+}
+.authPage {
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 50% 38%, #edf3e5 0, #f7f8f2 60%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 49px 22px;
+  color: #31482b;
+}
+.authPage > .brand {
+  font-size: 28px;
+}
+.authCard {
+  width: 100%;
+  max-width: 410px;
+  margin-top: 65px;
+}
+.cardHeader {
+  padding-bottom: 0;
+}
+.cardContent {
+  padding-top: 0;
+}
+.authIcon {
+  height: 43px;
+  width: 43px;
+  display: grid;
+  place-items: center;
+  color: var(--muted-foreground);
+  background: #f0f5e8;
+  border: 1px solid #e7eddc;
+  border-radius: 12px;
+  margin-bottom: 27px;
+}
+.authCard h1 {
+  font-size: 27px;
+  font-weight: 550;
+  letter-spacing: -1px;
+  margin: 0 0 11px;
+}
+.authCard .form {
+  gap: 20px;
+}
+@media (max-width: 760px) {
+  .authPage {
+    padding-top: 34px;
+  }
+  .authCard {
+    margin-top: 39px;
+  }
+  .authCard h1 {
+    font-size: 25px;
+  }
+}

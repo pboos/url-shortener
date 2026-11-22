@@ -1,0 +1,72 @@
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 27px;
+  font-weight: 760;
+  letter-spacing: -1.3px;
+  text-decoration: none;
+  color: #263a2d;
+}
+.brandIcon {
+  display: grid;
+  place-items: center;
+  background: #2e6249;
+  color: white;
+  width: 33px;
+  height: 33px;
+  border-radius: 10px;
+}
+.brandDot {
+  color: var(--muted-foreground);
+  margin-left: -8px;
+}
+.serverDot {
+  display: inline-block;
+  flex-shrink: 0;
+  height: 6px;
+  width: 6px;
+  background: #79a37b;
+  border-radius: 50%;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 550;
+  color: #526248;
+}
+.field > span:last-child:not(:has(input)) {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  font-weight: 400;
+  line-height: 1.6;
+}
+.field input::placeholder {
+  color: var(--muted-foreground);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  border-top: 1px solid #edf0e8;
+  padding-top: 21px;
+  margin-top: 5px;
+}
+@media (max-width: 760px) {
+  .brand {
+    font-size: 24px;
+  }
+  .brandIcon {
+    height: 29px;
+    width: 29px;
+    border-radius: 8px;
+  }
+}
