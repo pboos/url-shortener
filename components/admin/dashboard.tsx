@@ -1,5 +1,17 @@
 "use client";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { useEffect, useState } from "react";
 import { ArrowRight, Link2, Plus, Search, MousePointer2 } from "lucide-react";
 import type { LinkPage } from "@/lib/contracts";
@@ -63,11 +75,11 @@ export function Dashboard({ origin }: { origin: string }) {
         <div>
           <h1>All links</h1>
         </div>
-        <button className={s.primary} onClick={() => setCreate(true)}>
+        <Button size="sm" onClick={() => setCreate(true)}>
           <Plus size={17} /> Create link
-        </button>
+        </Button>
       </div>
-      <section className={s.overview}>
+      <Card className={s.overview}>
         <div>
           <span className={s.statIcon}>
             <Link2 size={19} />
@@ -90,12 +102,16 @@ export function Dashboard({ origin }: { origin: string }) {
             </strong>
           </div>
         </div>
-      </section>
-      <section className={s.panel}>
+      </Card>
+      <Card className="gap-0 overflow-hidden py-0">
         <div className={s.tableToolbar}>
           <label className={s.search}>
-            <Search size={17} />
-            <input
+            <Search
+              size={17}
+              className="pointer-events-none absolute left-3 text-muted-foreground"
+            />
+            <Input
+              className="pl-9 text-xs"
               type="search"
               placeholder="Search by short key or destination…"
               maxLength={200}
@@ -114,22 +130,22 @@ export function Dashboard({ origin }: { origin: string }) {
           )}
         </div>
         {error && <ErrorMessage message={error} />}
-        <div className={s.tableScroll}>
-          <table className={s.table}>
-            <thead>
-              <tr>
-                <th>SHORT LINK / DESTINATION</th>
-                <th>VISITS</th>
-                <th>CREATED</th>
-                <th>
+        <div>
+          <Table className="text-xs [&_th]:px-4 [&_th]:text-[10px] [&_th]:tracking-wider [&_td]:px-4 [&_td]:py-2">
+            <TableHeader>
+              <TableRow>
+                <TableHead>SHORT LINK / DESTINATION</TableHead>
+                <TableHead>VISITS</TableHead>
+                <TableHead className="hidden md:table-cell">CREATED</TableHead>
+                <TableHead>
                   <span className={s.srOnly}>Actions</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {links.map((link) => (
-                <tr key={link.id}>
-                  <td>
+                <TableRow key={link.id}>
+                  <TableCell>
                     <div className={s.linkCell}>
                       <span className={s.rowIcon}>
                         <Link2 size={17} />
@@ -155,14 +171,16 @@ export function Dashboard({ origin }: { origin: string }) {
                         )}
                       </div>
                     </div>
-                  </td>
-                  <td>
-                    <span className={s.visitBadge}>
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="secondary" className="tabular-nums">
                       {link.totalVisits.toLocaleString()}
-                    </span>
-                  </td>
-                  <td className={s.dateCell}>{dateLabel(link.createdAt)}</td>
-                  <td>
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="hidden text-muted-foreground md:table-cell">
+                    {dateLabel(link.createdAt)}
+                  </TableCell>
+                  <TableCell>
                     <div className={s.rowActions}>
                       <CopyButton
                         value={`${origin}/${encodeURIComponent(link.key)}`}
@@ -170,19 +188,25 @@ export function Dashboard({ origin }: { origin: string }) {
                       <ExternalLink
                         url={`${origin}/${encodeURIComponent(link.key)}`}
                       />
-                      <Link
-                        href={`/admin/${encodeURIComponent(link.key)}`}
-                        className={s.iconButton}
-                        aria-label={`Manage ${link.key}`}
+                      <Button
+                        asChild
+                        variant="ghost"
+                        size="icon"
+                        className="size-8"
                       >
-                        <ArrowRight size={17} />
-                      </Link>
+                        <Link
+                          href={`/admin/${encodeURIComponent(link.key)}`}
+                          aria-label={`Manage ${link.key}`}
+                        >
+                          <ArrowRight size={17} />
+                        </Link>
+                      </Button>
                     </div>
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
         {!links.length && (
           <div className={s.empty}>
@@ -202,9 +226,9 @@ export function Dashboard({ origin }: { origin: string }) {
                 : "Create a link to get started."}
             </p>
             {!loading && !query && (
-              <button className={s.primary} onClick={() => setCreate(true)}>
+              <Button size="sm" onClick={() => setCreate(true)}>
                 <Plus size={16} /> Create a link
-              </button>
+              </Button>
             )}
           </div>
         )}
@@ -216,7 +240,7 @@ export function Dashboard({ origin }: { origin: string }) {
             onChange={setPage}
           />
         )}
-      </section>
+      </Card>
       {create && (
         <Modal title="Create a short link" onClose={() => setCreate(false)}>
           <LinkForm

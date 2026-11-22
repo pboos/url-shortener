@@ -1,22 +1,19 @@
 .panel {
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
-  padding: 20px;
   min-width: 0;
+  align-self: start;
 }
-.panel h2 {
+.heading {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0 0 16px;
+  margin: 0;
   font-size: 17px;
   letter-spacing: -0.02em;
 }
 .preview {
   display: grid;
   place-items: center;
-  background: #f4f6f0;
+  background: var(--muted);
   border-radius: 8px;
   padding: 14px;
   min-height: 155px;
@@ -35,34 +32,10 @@
   display: grid;
   gap: 12px;
 }
-.controls label {
+.field {
   display: grid;
-  gap: 5px;
-  font-size: 12px;
-  font-weight: 600;
-}
-.controls select,
-.controls button,
-.controls .upload {
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  padding: 8px 10px;
-  color: var(--ink);
-  background: white;
-  font-size: 13px;
-}
-.controls button,
-.controls .upload {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
   gap: 6px;
-}
-.controls .save {
-  background: var(--accent);
-  color: white;
-  font-weight: 600;
-  border-color: var(--accent);
+  min-width: 0;
 }
 .colors,
 .export,
@@ -72,45 +45,24 @@
   align-items: center;
   flex-wrap: wrap;
 }
-.colors label,
+.colors > *,
 .export button {
   flex: 1;
 }
-.colors span {
-  padding: 4px;
+.colorValue {
   display: flex;
   align-items: center;
-  gap: 4px;
-  border-radius: 6px;
-  border: 1px solid var(--line);
+  gap: 6px;
 }
 .colors small {
   font-family: monospace;
   font-size: 11px;
 }
 .colors input {
-  width: 26px;
-  height: 25px;
-  padding: 0;
-  border: 0;
-  background: transparent;
+  width: 34px;
+  height: 32px;
+  padding: 3px;
   cursor: pointer;
-}
-.upload {
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
-}
-.upload input {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  width: 100%;
-  cursor: pointer;
-}
-.upload:focus-within {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
 }
 .panel p,
 .feedback {
@@ -120,8 +72,8 @@
 .feedback:not(:empty) {
   display: block;
   margin-top: 10px;
-  color: var(--accent);
+  color: var(--primary);
 }
 .error {
-  color: #a1302a;
+  color: var(--destructive);
 }

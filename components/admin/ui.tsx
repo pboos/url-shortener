@@ -10,9 +10,17 @@ import {
   Link2,
   LogOut,
   ArrowUpRight,
-  X,
 } from "lucide-react";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import s from "./ui.module.css";
 
 export async function request<T>(
@@ -69,7 +77,9 @@ export function AdminShell({
           <span className={s.serverName}>
             {origin.replace(/^https?:\/\//, "")}
           </span>
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             className={s.logout}
             aria-label="Sign out"
             onClick={async () => {
@@ -83,7 +93,7 @@ export function AdminShell({
             }}
           >
             <LogOut size={16} />
-          </button>
+          </Button>
         </div>
       </aside>
       <div className={s.mainWrap}>
@@ -102,9 +112,9 @@ export function AdminShell({
 }
 export function ErrorMessage({ message }: { message: string }) {
   return (
-    <p className={s.error} role="alert">
-      {message}
-    </p>
+    <Alert variant="destructive">
+      <AlertDescription>{message}</AlertDescription>
+    </Alert>
   );
 }
 export function CopyButton({
@@ -123,8 +133,9 @@ export function CopyButton({
   }, [copied]);
   return (
     <>
-      <button
-        className={s.iconButton}
+      <Button
+        variant="ghost"
+        size="icon"
         aria-label={copied ? "Copied" : label}
         title={copied ? "Copied" : label}
         onClick={async () => {
@@ -138,7 +149,7 @@ export function CopyButton({
         }}
       >
         {copied ? <Check size={16} /> : <Copy size={16} />}
-      </button>
+      </Button>
       {failed && (
         <span role="alert" className={s.copyError}>
           Copy failed. Select and copy the URL.
@@ -158,15 +169,16 @@ export function safeUrl(url: string) {
 export function ExternalLink({ url }: { url: string }) {
   if (!safeUrl(url)) return null;
   return (
-    <a
-      className={s.iconButton}
-      href={url}
-      target="_blank"
-      rel="noreferrer"
-      aria-label="Open destination"
-    >
-      <ArrowUpRight size={17} />
-    </a>
+    <Button variant="ghost" size="icon" asChild>
+      <a
+        href={url}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Open destination"
+      >
+        <ArrowUpRight size={17} />
+      </a>
+    </Button>
   );
 }
 export function Pagination({
@@ -189,25 +201,27 @@ export function Pagination({
           : "0 results"}
       </span>
       <div>
-        <button
-          className={s.iconButton}
+        <Button
+          variant="ghost"
+          size="icon"
           disabled={page <= 1}
           onClick={() => onChange(page - 1)}
           aria-label="Previous page"
         >
           <ChevronLeft size={17} />
-        </button>
+        </Button>
         <span className={s.pageCount}>
           {page} / {pages}
         </span>
-        <button
-          className={s.iconButton}
+        <Button
+          variant="ghost"
+          size="icon"
           disabled={page >= pages}
           onClick={() => onChange(page + 1)}
           aria-label="Next page"
         >
           <ChevronRight size={17} />
-        </button>
+        </Button>
       </div>
     </div>
   );
@@ -223,40 +237,38 @@ export function Modal({
   children: ReactNode;
   onClose: () => void;
 }) {
-  const ref = useRef<HTMLDialogElement>(null);
-  useEffect(() => {
-    const dialog = ref.current;
-    dialog?.showModal();
-    return () => dialog?.close();
-  }, []);
+  const [returnFocus] = useState(() =>
+    typeof document !== "undefined" &&
+    document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null,
+  );
   return (
-    <dialog
-      ref={ref}
-      className={s.modal}
-      onCancel={onClose}
-      onClick={(event) => {
-        if (event.target === event.currentTarget) onClose();
+    <Dialog
+      open
+      onOpenChange={(open) => {
+        if (!open) onClose();
       }}
     >
-      <div className={s.modalBody}>
-        <div className={s.modalHeading}>
-          <div>
-            <h2>{title}</h2>
-            {description && <p>{description}</p>}
-          </div>
-          <button
-            className={s.iconButton}
-            aria-label="Close dialog"
-            onClick={onClose}
-          >
-            <X size={19} />
-          </button>
-        </div>
+      <DialogContent
+        {...(description ? {} : { "aria-describedby": undefined })}
+        onCloseAutoFocus={(event) => {
+          if (returnFocus?.isConnected) {
+            event.preventDefault();
+            returnFocus.focus();
+          }
+        }}
+      >
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+          {description && <DialogDescription>{description}</DialogDescription>}
+        </DialogHeader>
         {children}
-      </div>
-    </dialog>
+      </DialogContent>
+    </Dialog>
   );
 }
+
 export const dateLabel = (date: string) =>
   new Date(date).toLocaleDateString(undefined, {
     month: "short",

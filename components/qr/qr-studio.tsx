@@ -3,6 +3,14 @@
 import { Download, QrCode, Upload } from "lucide-react";
 import type QRCodeStyling from "qr-code-styling";
 import { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
 import { defaultQr, qrPatterns } from "@/lib/qr";
 import type { QrConfig } from "@/lib/contracts";
 import { resizeLogo } from "./logo";
@@ -25,6 +33,7 @@ export function QrStudio({
   const [busy, setBusy] = useState(false);
   const [format, setFormat] = useState<"svg" | "png">("svg");
   const preview = useRef<HTMLDivElement>(null);
+  const logoUpload = useRef<HTMLInputElement>(null);
   const generator = useRef<QRCodeStyling | null>(null);
   const remoteLogo = style.logo?.startsWith("https://") ? style.logo : null;
 
@@ -104,52 +113,68 @@ export function QrStudio({
   }
 
   return (
-    <section className={s.panel} aria-labelledby="qr-heading">
-      <h2 id="qr-heading">
-        <QrCode size={18} aria-hidden /> QR code
-      </h2>
-      <div
-        className={s.preview}
-        ref={preview}
-        role="img"
-        aria-label={`QR code for ${shortUrl}`}
-      />
-      <fieldset disabled={busy} className={s.controls}>
-        <label>
-          Dot style
-          <select
-            value={style.pattern}
-            onChange={(e) => {
-              const pattern = qrPatterns.find((p) => p === e.target.value);
-              if (pattern) change({ pattern });
-            }}
-          >
-            {qrPatterns.map((p) => (
-              <option key={p} value={p}>
-                {p[0].toUpperCase() + p.slice(1).replace("-", " ")}
-              </option>
+    <Card className={s.panel} role="region" aria-labelledby="qr-heading">
+      <CardHeader>
+        <CardTitle>
+          <h2 id="qr-heading" className={s.heading}>
+            <QrCode size={18} aria-hidden /> QR code
+          </h2>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div
+          className={s.preview}
+          ref={preview}
+          role="img"
+          aria-label={`QR code for ${shortUrl}`}
+        />
+        <fieldset disabled={busy} className={s.controls}>
+          <div className={s.field}>
+            <Label htmlFor="qr-dot-style">Dot style</Label>
+            <NativeSelect
+              id="qr-dot-style"
+              value={style.pattern}
+              onChange={(e) => {
+                const pattern = qrPatterns.find((p) => p === e.target.value);
+                if (pattern) change({ pattern });
+              }}
+            >
+              {qrPatterns.map((p) => (
+                <NativeSelectOption key={p} value={p}>
+                  {p[0].toUpperCase() + p.slice(1).replace("-", " ")}
+                </NativeSelectOption>
+              ))}
+            </NativeSelect>
+          </div>
+          <div className={s.colors}>
+            {(["ink", "paper"] as const).map((key) => (
+              <div key={key} className={s.field}>
+                <Label htmlFor={`qr-${key}`}>
+                  {key === "ink" ? "Foreground" : "Background"}
+                </Label>
+                <span className={s.colorValue}>
+                  <Input
+                    id={`qr-${key}`}
+                    type="color"
+                    value={style[key]}
+                    onChange={(e) => change({ [key]: e.target.value })}
+                  />
+                  <small>{style[key].toUpperCase()}</small>
+                </span>
+              </div>
             ))}
-          </select>
-        </label>
-        <div className={s.colors}>
-          {(["ink", "paper"] as const).map((key) => (
-            <label key={key}>
-              {key === "ink" ? "Foreground" : "Background"}
-              <span>
-                <input
-                  type="color"
-                  value={style[key]}
-                  onChange={(e) => change({ [key]: e.target.value })}
-                />
-                <small>{style[key].toUpperCase()}</small>
-              </span>
-            </label>
-          ))}
-        </div>
-        <div className={s.logo}>
-          <label className={s.upload}>
-            <Upload size={15} /> {style.logo ? "Replace logo" : "Add logo"}
-            <input
+          </div>
+          <div className={s.logo}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => logoUpload.current?.click()}
+            >
+              <Upload size={15} /> {style.logo ? "Replace logo" : "Add logo"}
+            </Button>
+            <Input
+              ref={logoUpload}
+              hidden
               aria-label="Upload logo"
               type="file"
               accept="image/png,image/jpeg,image/webp"
@@ -162,61 +187,66 @@ export function QrStudio({
                   );
               }}
             />
-          </label>
-          {style.logo && (
-            <button type="button" onClick={() => change({ logo: null })}>
-              Remove logo
-            </button>
+            {style.logo && (
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => change({ logo: null })}
+              >
+                Remove logo
+              </Button>
+            )}
+          </div>
+          {remoteLogo && (
+            <p>
+              Upload a copy of your{" "}
+              <a href={remoteLogo} target="_blank" rel="noreferrer">
+                saved logo
+              </a>{" "}
+              to include it in the download.
+            </p>
           )}
-        </div>
-        {remoteLogo && (
-          <p>
-            Upload a copy of your{" "}
-            <a href={remoteLogo} target="_blank" rel="noreferrer">
-              saved logo
-            </a>{" "}
-            to include it in the download.
+          <Button type="button" onClick={() => void act(save)}>
+            Save design
+          </Button>
+          <div className={s.export}>
+            <NativeSelect
+              aria-label="Download format"
+              value={format}
+              onChange={(e) =>
+                setFormat(e.target.value === "png" ? "png" : "svg")
+              }
+            >
+              <NativeSelectOption value="svg">SVG</NativeSelectOption>
+              <NativeSelectOption value="png">PNG</NativeSelectOption>
+            </NativeSelect>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() =>
+                void act(async () => {
+                  if (!generator.current)
+                    throw new Error("The preview is still loading.");
+                  await generator.current.download({
+                    name: linkKey,
+                    extension: format,
+                  });
+                })
+              }
+            >
+              <Download size={15} /> Download
+            </Button>
+          </div>
+        </fieldset>
+        {error && (
+          <p className={s.error} role="alert">
+            {error}
           </p>
         )}
-        <button type="button" className={s.save} onClick={() => void act(save)}>
-          Save design
-        </button>
-        <div className={s.export}>
-          <select
-            aria-label="Download format"
-            value={format}
-            onChange={(e) =>
-              setFormat(e.target.value === "png" ? "png" : "svg")
-            }
-          >
-            <option value="svg">SVG</option>
-            <option value="png">PNG</option>
-          </select>
-          <button
-            type="button"
-            onClick={() =>
-              void act(async () => {
-                if (!generator.current)
-                  throw new Error("The preview is still loading.");
-                await generator.current.download({
-                  name: linkKey,
-                  extension: format,
-                });
-              })
-            }
-          >
-            <Download size={15} /> Download
-          </button>
-        </div>
-      </fieldset>
-      {error && (
-        <p className={s.error} role="alert">
-          {error}
-        </p>
-      )}
-      <span className={s.feedback} role="status">
-        {message}
-      </span>
-    </section>
+        <span className={s.feedback} role="status">
+          {message}
+        </span>
+      </CardContent>
+    </Card>
   );
 }

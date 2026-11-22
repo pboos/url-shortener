@@ -1,5 +1,16 @@
 "use client";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
@@ -84,9 +95,16 @@ export function LinkDetail({
   const peak = Math.max(1, ...(stats?.daily.map((day) => day.visits) ?? []));
   return (
     <AdminShell origin={origin}>
-      <Link href="/admin" className={s.backLink}>
-        <ArrowLeft size={15} /> Back to all links
-      </Link>
+      <Button
+        asChild
+        variant="ghost"
+        size="sm"
+        className="mb-5 -ml-3 text-muted-foreground"
+      >
+        <Link href="/admin">
+          <ArrowLeft size={15} /> Back to all links
+        </Link>
+      </Button>
       {error && <ErrorMessage message={error} />}
       <div className={s.pageHeading}>
         <div>
@@ -94,22 +112,28 @@ export function LinkDetail({
         </div>
         {link && (
           <div className={s.headingActions}>
-            <button className={s.secondary} onClick={() => setDialog("edit")}>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setDialog("edit")}
+            >
               <Pencil size={15} /> Edit link
-            </button>
-            <button
-              className={s.iconButton}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-8 text-destructive"
               aria-label="Delete link"
               onClick={() => setDialog("delete")}
             >
               <Trash2 size={17} />
-            </button>
+            </Button>
           </div>
         )}
       </div>
       {link && (
         <>
-          <section className={`${s.panel} ${s.linkSummary}`}>
+          <Card className={s.linkSummary}>
             <div>
               <span className={s.label}>SHORT LINK</span>
               <div className={s.shortUrl}>
@@ -135,10 +159,10 @@ export function LinkDetail({
             <span className={s.created}>
               <CalendarDays size={15} /> Created {dateLabel(link.createdAt)}
             </span>
-          </section>
+          </Card>
           <div className={s.detailGrid}>
             <div>
-              <section className={s.panel}>
+              <Card className="gap-0 overflow-hidden py-0">
                 <div className={s.tableToolbar}>
                   <div>
                     <h2>Link activity</h2>
@@ -190,27 +214,29 @@ export function LinkDetail({
                     </div>
                   ))}
                 </div>
-              </section>
-              <section className={`${s.panel} ${s.visitsPanel}`}>
+              </Card>
+              <Card className="mt-6 gap-0 overflow-hidden py-0">
                 <div className={s.tableToolbar}>
                   <div>
                     <h2>Recent visits</h2>
                   </div>
-                  <span className={s.count}>{stats?.totalRows ?? 0}</span>
+                  <Badge variant="secondary">{stats?.totalRows ?? 0}</Badge>
                 </div>
-                <div className={s.tableScroll}>
-                  <table className={s.table}>
-                    <thead>
-                      <tr>
-                        <th>VISITOR ID</th>
-                        <th>LOCATION</th>
-                        <th>TIME · UTC</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                <div>
+                  <Table className="text-xs [&_th]:px-4 [&_th]:text-[10px] [&_th]:tracking-wider [&_td]:px-4 [&_td]:py-2">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>VISITOR ID</TableHead>
+                        <TableHead className="hidden md:table-cell">
+                          LOCATION
+                        </TableHead>
+                        <TableHead>TIME · UTC</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
                       {stats?.visits.map((visit) => (
-                        <tr key={visit.id}>
-                          <td className={s.mono}>
+                        <TableRow key={visit.id}>
+                          <TableCell className={s.mono}>
                             {visit.visitor ?? "Unknown"}
                             <details className={s.visitDetails}>
                               <summary>Browser &amp; location</summary>
@@ -222,13 +248,13 @@ export function LinkDetail({
                               </p>
                               <p>Browser: {visit.userAgent || "Unknown"}</p>
                             </details>
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell className="hidden md:table-cell">
                             {[visit.city, visit.country]
                               .filter(Boolean)
                               .join(", ") || "Unknown"}
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell>
                             <time
                               className={s.timestamp}
                               dateTime={visit.createdAt}
@@ -239,11 +265,11 @@ export function LinkDetail({
                                 .replace("T", " ")
                                 .slice(0, 19)}
                             </time>
-                          </td>
-                        </tr>
+                          </TableCell>
+                        </TableRow>
                       ))}
-                    </tbody>
-                  </table>
+                    </TableBody>
+                  </Table>
                 </div>
                 {stats && !stats.visits.length && (
                   <div className={s.empty}>
@@ -260,7 +286,7 @@ export function LinkDetail({
                     onChange={setPage}
                   />
                 )}
-              </section>
+              </Card>
             </div>
             <div className={s.qrColumn}>
               <QrStudio
@@ -300,12 +326,17 @@ export function LinkDetail({
         >
           <div className={s.deletePreview}>{shortUrl}</div>
           <div className={s.formActions}>
-            <button className={s.secondary} onClick={() => setDialog(null)}>
+            <Button variant="outline" size="sm" onClick={() => setDialog(null)}>
               Keep link
-            </button>
-            <button className={s.danger} disabled={deleting} onClick={remove}>
+            </Button>
+            <Button
+              variant="destructive"
+              size="sm"
+              disabled={deleting}
+              onClick={remove}
+            >
               {deleting ? "Deleting…" : "Delete link"}
-            </button>
+            </Button>
           </div>
         </Modal>
       )}

@@ -15,7 +15,11 @@ Next.js App Router runs on Node.js. The admin pages render per request because s
 | `/api/links/[key]`                       | Read, patch, or delete one owned link. Changing a key changes the public URL and keeps its history.                                                |
 | `/api/links/[key]/visits`                | Return lifetime totals, daily counts for the last seven UTC calendar days, and a page of visits in reverse chronological order.                    |
 
-Admin components and their CSS modules live in `components/admin/`. `components/qr/` renders and exports codes in the browser with `qr-code-styling`, using the short URL as the payload. The QR module handles logo resizing locally. `app/globals.css` contains shared design tokens and base styles.
+## UI conventions
+
+Admin screens compose the shadcn/ui primitives in `components/ui/`. Buttons, tables, form controls, dialogs, and cards share the theme in `app/globals.css`. The generated TypeScript files are part of this repository. To add a primitive, run `npx shadcn@4.23.0 add <component>` from the repository root and review the generated diff. `components.json` selects the New York style and the existing Lucide icon set.
+
+Tailwind CSS 4 generates the primitive styles at build time. Keep screen-specific layout and media queries in CSS modules beside their components. `components/qr/` renders and exports codes in the browser with `qr-code-styling`, using the short URL as the payload. The QR module handles logo resizing locally. `app/globals.css` contains shared design tokens and base styles.
 
 ## Data and boundaries
 

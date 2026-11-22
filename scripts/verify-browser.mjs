@@ -27,10 +27,18 @@ try {
     .fill("browser-test-password");
   await page.locator("input[name=token]").fill(token);
   await page.getByRole("button", { name: "Create account" }).click();
-  await page
+  const createLink = page
     .getByRole("button", { name: "Create link", exact: true })
-    .first()
-    .click();
+    .first();
+  await createLink.click();
+  await page.getByRole("dialog", { name: "Create a short link" }).waitFor();
+  await page.keyboard.press("Escape");
+  await page.getByRole("dialog").waitFor({ state: "detached" });
+  await page.waitForFunction(
+    (button) => button === document.activeElement,
+    await createLink.elementHandle(),
+  );
+  await createLink.press("Enter");
   await page
     .locator("input[name=url]")
     .fill("https://example.org/studio/guide");

@@ -1,7 +1,10 @@
 "use client";
-import { useState, type FormEvent } from "react";
+import { useId, useState, type FormEvent } from "react";
 import type { LinkRecord } from "@/lib/contracts";
 import { ErrorMessage, request } from "./ui";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import s from "./link-form.module.css";
 export function LinkForm({
   link,
@@ -14,6 +17,7 @@ export function LinkForm({
   onSaved: (link: LinkRecord) => void;
   onCancel: () => void;
 }) {
+  const id = useId();
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -45,9 +49,10 @@ export function LinkForm({
   return (
     <form onSubmit={submit} className={s.form}>
       {error && <ErrorMessage message={error} />}
-      <label className={s.field}>
-        Destination URL
-        <input
+      <div className={s.field}>
+        <Label htmlFor={`${id}-url`}>Destination URL</Label>
+        <Input
+          id={`${id}-url`}
           name="url"
           type="url"
           placeholder="https://example.com/your-long-url"
@@ -56,12 +61,13 @@ export function LinkForm({
           autoFocus
         />
         <span>The address people will visit.</span>
-      </label>
-      <label className={s.field}>
-        Short link
+      </div>
+      <div className={s.field}>
+        <Label htmlFor={`${id}-key`}>Short link</Label>
         <span className={s.inputGroup}>
           <span>{origin.replace(/^https?:\/\//, "")}/</span>
-          <input
+          <Input
+            id={`${id}-key`}
             name="key"
             aria-label="Short link key"
             placeholder="your-link"
@@ -76,14 +82,14 @@ export function LinkForm({
             ? "Changing this key will stop the old short URL from working."
             : "Optional. Leave blank and we’ll create a unique key."}
         </span>
-      </label>
+      </div>
       <div className={s.formActions}>
-        <button className={s.secondary} type="button" onClick={onCancel}>
+        <Button variant="outline" type="button" onClick={onCancel}>
           Cancel
-        </button>
-        <button className={s.primary} disabled={busy}>
+        </Button>
+        <Button type="submit" disabled={busy}>
           {busy ? "Saving…" : link ? "Save changes" : "Create link"}
-        </button>
+        </Button>
       </div>
     </form>
   );

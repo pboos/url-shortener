@@ -13,9 +13,6 @@
 .form {
   composes: form from "./controls.module.css";
 }
-.primary {
-  composes: primary from "./controls.module.css";
-}
 .authPage {
   min-height: 100vh;
   background: radial-gradient(ellipse at 50% 38%, #edf3e5 0, #f7f8f2 60%);
@@ -32,18 +29,19 @@
   width: 100%;
   max-width: 410px;
   margin-top: 65px;
-  background: #fff;
-  border: 1px solid #e2e8d9;
-  box-shadow: 0 9px 35px #34492505;
-  border-radius: 12px;
-  padding: 34px;
+}
+.cardHeader {
+  padding-bottom: 0;
+}
+.cardContent {
+  padding-top: 0;
 }
 .authIcon {
   height: 43px;
   width: 43px;
   display: grid;
   place-items: center;
-  color: var(--muted);
+  color: var(--muted-foreground);
   background: #f0f5e8;
   border: 1px solid #e7eddc;
   border-radius: 12px;
@@ -58,29 +56,14 @@
 .authCard .form {
   gap: 20px;
 }
-.authCard .primary {
-  margin-top: 4px;
-  justify-content: space-between;
-  min-height: 42px;
-}
 @media (max-width: 760px) {
-  .eyebrow {
-    font-size: 11px;
-    letter-spacing: 1.7px;
-  }
   .authPage {
     padding-top: 34px;
   }
   .authCard {
     margin-top: 39px;
-    padding: 29px;
   }
   .authCard h1 {
     font-size: 25px;
   }
-}
-.authPage button:focus-visible,
-.authPage a:focus-visible {
-  outline: 3px solid #9bb587;
-  outline-offset: 3px;
 }

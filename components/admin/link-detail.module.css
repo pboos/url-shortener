@@ -1,14 +1,5 @@
-.danger {
-  composes: danger from "./controls.module.css";
-}
 .formActions {
   composes: formActions from "./controls.module.css";
-}
-.iconButton {
-  composes: iconButton from "./controls.module.css";
-}
-.secondary {
-  composes: secondary from "./controls.module.css";
 }
 .pageHeading {
   display: flex;
@@ -28,22 +19,6 @@
   gap: 13px;
   overflow-wrap: anywhere;
 }
-.count {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
-  background: #eaf0e3;
-  padding: 3px 7px;
-  border: 1px solid #dfe7d8;
-  border-radius: 5px;
-  letter-spacing: 0;
-}
-.panel {
-  border: 1px solid #e1e6da;
-  background: #fff;
-  border-radius: 9px;
-  overflow: hidden;
-}
 .tableToolbar {
   min-height: 58px;
   display: flex;
@@ -51,7 +26,7 @@
   justify-content: space-between;
   gap: 20px;
   padding: 12px 20px;
-  border-bottom: 1px solid #e9ece3;
+  border-bottom: 1px solid var(--border);
 }
 .tableToolbar h2 {
   font-size: 13px;
@@ -61,71 +36,26 @@
 }
 .tableToolbar > div > span {
   font-size: 12px;
-  color: var(--muted);
-}
-.tableScroll {
-  overflow: auto;
-}
-.table {
-  border-collapse: collapse;
-  width: 100%;
-  text-align: left;
-  white-space: nowrap;
-}
-.table th {
-  font-size: 11px;
-  letter-spacing: 1.25px;
-  font-weight: 600;
-  color: var(--muted);
-  background: #fbfcf8;
-  padding: 13px 24px;
-  border-bottom: 1px solid #e9ece3;
-}
-.table td {
-  padding: 18px 24px;
-  border-bottom: 1px solid #edf0e8;
-  font-size: 12px;
-  color: var(--muted);
-}
-.table tbody tr:last-child td {
-  border-bottom: 0;
-}
-.table tbody tr:hover {
-  background: #fcfdf9;
-}
-.table th:first-child {
-  width: 64%;
+  color: var(--muted-foreground);
 }
 .empty {
   padding: 49px 20px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  color: var(--muted);
+  color: var(--muted-foreground);
   text-align: center;
 }
 .empty h3 {
   font-size: 15px;
   font-weight: 550;
-  color: #526448;
+  color: var(--primary);
   margin: 16px 0 9px;
 }
 .empty p {
   font-size: 12px;
   margin: 0 0 20px;
-  color: var(--muted);
-}
-.backLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 12px;
-  margin-bottom: 27px;
-}
-.backLink:hover {
-  color: #42643a;
+  color: var(--muted-foreground);
 }
 .headingActions {
   display: flex;
@@ -133,6 +63,8 @@
   gap: 10px;
 }
 .linkSummary {
+  min-width: 0;
+  flex-direction: row;
   padding: 24px;
   margin-bottom: 25px;
   display: flex;
@@ -143,8 +75,11 @@
 .label {
   font-size: 11px;
   letter-spacing: 1.4px;
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-weight: 600;
+}
+.linkSummary > div {
+  min-width: 0;
 }
 .shortUrl {
   display: flex;
@@ -154,7 +89,7 @@
 }
 .shortUrl a {
   font-size: 17px;
-  color: #3e5c37;
+  color: var(--primary);
   text-decoration: none;
   overflow-wrap: anywhere;
   font-weight: 550;
@@ -162,7 +97,7 @@
 }
 .destinationFull {
   font-size: 12px;
-  color: var(--muted);
+  color: var(--muted-foreground);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -172,7 +107,7 @@
 }
 .created {
   font-size: 12px;
-  color: var(--muted);
+  color: var(--muted-foreground);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -194,10 +129,10 @@
   grid-template-columns: 20px 1fr;
   gap: 8px;
   font-size: 12px;
-  color: var(--muted);
+  color: var(--muted-foreground);
 }
 .detailStats > div + div {
-  border-left: 1px solid #e8eddf;
+  border-left: 1px solid var(--border);
   padding-left: 27px;
 }
 .detailStats strong {
@@ -205,7 +140,7 @@
   font-size: 28px;
   letter-spacing: -1px;
   font-weight: 550;
-  color: #425c36;
+  color: var(--primary);
   line-height: 1.2;
 }
 .chart {
@@ -239,7 +174,7 @@
   justify-content: flex-end;
   gap: 10px;
   font-size: 11px;
-  color: var(--muted);
+  color: var(--muted-foreground);
 }
 .bar {
   width: 65%;
@@ -254,21 +189,8 @@
 }
 .barValue {
   font-size: 11px;
-  color: var(--muted);
+  color: var(--muted-foreground);
   line-height: 1;
-}
-.visitsPanel {
-  margin-top: 25px;
-}
-.visitsPanel .table td {
-  font-size: 12px;
-  padding: 7px 12px;
-}
-.visitsPanel .table th {
-  padding: 12px 20px;
-}
-.visitsPanel .table th:first-child {
-  width: auto;
 }
 .mono,
 .timestamp {
@@ -284,8 +206,8 @@
 .deletePreview {
   padding: 17px;
   border-radius: 6px;
-  background: #f7f8f2;
-  border: 1px solid #e4e9db;
+  background: var(--muted);
+  border: 1px solid var(--border);
   font-size: 12px;
   overflow-wrap: anywhere;
   margin-bottom: 23px;
@@ -294,11 +216,6 @@
   .detailGrid {
     grid-template-columns: minmax(0, 1fr) 295px;
     gap: 18px;
-  }
-  .table td,
-  .table th {
-    padding-left: 18px;
-    padding-right: 18px;
   }
 }
 @media (max-width: 1000px) {
@@ -334,28 +251,6 @@
   .tableToolbar > div > span {
     font-size: 11px;
   }
-  .table th {
-    font-size: 11px;
-    padding: 13px 17px;
-  }
-  .table td {
-    padding: 17px;
-  }
-  .table th:nth-child(3),
-  .table td:nth-child(3) {
-    display: none;
-  }
-  .table .iconButton {
-    width: 26px;
-  }
-  .detailGrid .table th:nth-child(3),
-  .detailGrid .table td:nth-child(3) {
-    display: table-cell;
-  }
-  .detailGrid .table th:nth-child(2),
-  .detailGrid .table td:nth-child(2) {
-    display: none;
-  }
   .shortUrl a {
     font-size: 15px;
   }
@@ -377,9 +272,6 @@
   .headingActions {
     gap: 3px;
   }
-  .backLink {
-    margin-bottom: 22px;
-  }
 }
 @media (prefers-reduced-motion: no-preference) {
   .bar {
@@ -391,19 +283,6 @@
   line-height: 1.6;
   max-width: 300px;
 }
-.table td:first-child {
-  white-space: normal;
-  min-width: 120px;
-}
-.table th:first-child {
-  width: auto;
-}
-@media (max-width: 760px) {
-  .table td:first-child {
-    min-width: 120px;
-  }
-}
-
 .visitDetails {
   margin-top: 3px;
   max-width: 300px;
@@ -413,7 +292,7 @@
 }
 .visitDetails summary {
   cursor: pointer;
-  color: #526448;
+  color: var(--primary);
 }
 .visitDetails p {
   line-height: 1.6;
