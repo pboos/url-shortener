@@ -16,13 +16,16 @@ docker run -d --name shortener --restart unless-stopped \
 
 Retrieve the token from the shell where you generated it and use it at `/admin/setup`. After the first account exists, you can remove the variable when replacing the container. Use a version tag for a reproducible deployment. A `v*` release must have been published for that tag or `latest` to exist.
 
-| Variable           | Purpose                                                                                                                                                                              |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `PUBLIC_BASE_URL`  | HTTP or HTTPS origin used for short links, QR codes, and browser origin checks. Defaults to `http://localhost:3000`. Set it explicitly in production.                                |
-| `DATABASE_PATH`    | SQLite filename. Defaults to `./data/sqlite.db`, which resolves to `/app/data/sqlite.db` in Docker.                                                                                  |
-| `SETUP_TOKEN`      | Server-generated secret required to register the first account. Existing accounts sign in without it.                                                                                |
-| `TRUST_PROXY`      | Defaults to `false`. Enable only behind a proxy that overwrites the visitor headers and blocks direct access to the app. See [visitor attribution](security.md#visitor-attribution). |
-| `HOSTNAME`, `PORT` | Bind address and port for the standalone server. The image listens on `0.0.0.0:3000`.                                                                                                |
+| Variable            | Purpose                                                                                                                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `PUBLIC_BASE_URL`   | HTTP or HTTPS origin used for short links, QR codes, and browser origin checks. Defaults to `http://localhost:3000`. Set it explicitly in production.                                |
+| `ROOT_REDIRECT_URL` | Optional absolute HTTP or HTTPS destination for `/`, without embedded credentials. Unset, blank, or invalid values return a plain 404. Valid values return 302 for GET and HEAD.     |
+| `DATABASE_PATH`     | SQLite filename. Defaults to `./data/sqlite.db`, which resolves to `/app/data/sqlite.db` in Docker.                                                                                  |
+| `SETUP_TOKEN`       | Server-generated secret required to register the first account. Existing accounts sign in without it.                                                                                |
+| `TRUST_PROXY`       | Defaults to `false`. Enable only behind a proxy that overwrites the visitor headers and blocks direct access to the app. See [visitor attribution](security.md#visitor-attribution). |
+| `HOSTNAME`, `PORT`  | Bind address and port for the standalone server. The image listens on `0.0.0.0:3000`.                                                                                                |
+
+For example, set `ROOT_REDIRECT_URL=https://www.example.com/welcome` and restart the server. The redirect preserves the destination's own query string and fragment and discards query parameters from the incoming request.
 
 Give SQLite a persistent local filesystem with working file locks. The runtime process uses UID and GID 1000 and needs write access to the database directory, the database file, and SQLite's journal files.
 
