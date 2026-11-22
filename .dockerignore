@@ -1,1 +1,10 @@
+.git
+.github
+.audit
+.next
 node_modules
+data
+.env*
+*.db*
+*.log
+*.tsbuildinfo
