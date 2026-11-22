@@ -8,7 +8,10 @@ export function testServer(defaultPort) {
   const token = "local-integration-bootstrap-token";
   let server;
   let output = "";
-  async function start(database, trustProxy = false) {
+  async function start(
+    database,
+    { trustProxy = false, rootRedirectUrl = "" } = {},
+  ) {
     output = "";
     server = spawn(process.execPath, [".next/standalone/server.js"], {
       env: {
@@ -16,6 +19,7 @@ export function testServer(defaultPort) {
         HOSTNAME: "127.0.0.1",
         PORT: String(port),
         PUBLIC_BASE_URL: origin,
+        ROOT_REDIRECT_URL: rootRedirectUrl,
         DATABASE_PATH: database,
         SETUP_TOKEN: token,
         TRUST_PROXY: String(trustProxy),

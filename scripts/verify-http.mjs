@@ -32,6 +32,22 @@ async function request(
   );
   return response;
 }
+async function checkRoot(destination) {
+  for (const method of ["GET", "HEAD"]) {
+    const response = await request("/?incoming=ignored", {
+      method,
+      expected: destination ? 302 : 404,
+    });
+    assert.equal(response.headers.get("location"), destination ?? null);
+    assert.equal(response.headers.get("cache-control"), "no-store");
+    assert.equal(
+      await response.text(),
+      method === "GET" && !destination ? "Not Found" : "",
+    );
+    if (!destination)
+      assert.match(response.headers.get("content-type"), /^text\/plain\b/);
+  }
+}
 const session = (response) => {
   const value = response.headers.get("set-cookie");
   assert.match(value, /HttpOnly/i);
@@ -42,6 +58,7 @@ const session = (response) => {
 try {
   const database = path.join(directory, "fresh.db");
   await start(database);
+  await checkRoot();
   assert.deepEqual(await (await request("/api/setup")).json(), {
     isSetup: false,
   });
@@ -169,7 +186,9 @@ try {
     expected: 404,
   });
   await stop();
-  await start(database);
+  const rootDestination = "https://example.org/landing?source=root#details";
+  await start(database, { rootRedirectUrl: rootDestination });
+  await checkRoot(rootDestination);
   await request("/api/links", { cookie });
   const sessionDb = new DatabaseSync(database);
   sessionDb
@@ -205,7 +224,11 @@ try {
     .prepare("INSERT INTO users(username,password) VALUES (?,?)")
     .run(" legacy ", await bcrypt.hash("legacy-password".repeat(8), 10));
   legacy.close();
-  await start(legacyPath, true);
+  await start(legacyPath, {
+    trustProxy: true,
+    rootRedirectUrl: "https://user:password@example.org/",
+  });
+  await checkRoot();
   assert.deepEqual(await (await request("/api/setup")).json(), {
     isSetup: true,
   });
@@ -249,7 +272,7 @@ try {
   assert.equal(located.visits[0].city, "Zurich");
 
   console.log(
-    "HTTP verification passed: bootstrap, sessions, validation, ownership, CRUD, redirects, visits, throttling, and legacy bcrypt sign-in.",
+    "HTTP verification passed: bootstrap, sessions, validation, ownership, CRUD, root responses, redirects, visits, throttling, and legacy bcrypt sign-in.",
   );
 } finally {
   await stop();

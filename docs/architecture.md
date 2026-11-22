@@ -6,7 +6,7 @@ Next.js App Router runs on Node.js. The admin pages render per request because s
 
 | Route                                    | Responsibility                                                                                                                                     |
 | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/`                                      | Open the admin workspace.                                                                                                                          |
+| `/`                                      | Return a plain 404, or a temporary redirect to the runtime `ROOT_REDIRECT_URL`. GET and HEAD do not access SQLite or record visits.                |
 | `/[key]`                                 | Resolve an HTTP(S) destination. GET records a visit and returns a temporary redirect. HEAD returns the same destination without recording a visit. |
 | `/admin`, `/admin/[key]`                 | Search and manage links, inspect visit history, edit QR designs, or delete a link with confirmation.                                               |
 | `/admin/setup`, `/admin/login`           | Bootstrap a new database or sign in to an existing account.                                                                                        |
